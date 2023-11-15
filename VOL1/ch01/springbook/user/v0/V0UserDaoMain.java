@@ -12,6 +12,8 @@ public class V0UserDaoMain {
 
         User user = new User();
 
+
+
         user.setId("shc729");
         user.setName("신호철");
         user.setPassword("1234");
