@@ -1,5 +1,6 @@
 package springbook.user.dao;
 
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
@@ -11,7 +12,9 @@ import java.sql.SQLException;
 public class UserDao {
 
    private DataSource dataSource;
-
+    public void setDataSource(SimpleDriverDataSource dataSource) {
+        this.dataSource=dataSource;
+    }
     public void add(User user) throws SQLException {
         Connection c = dataSource.getConnection();
         PreparedStatement ps = c.prepareStatement(
@@ -56,6 +59,7 @@ public class UserDao {
         return rows;
 
     }
+
 
 
 }

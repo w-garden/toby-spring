@@ -11,7 +11,9 @@ import java.sql.SQLException;
 public class UserDao_v7 {
 
    private DataSource dataSource;
-
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     public void add(User user) throws SQLException {
         Connection c = dataSource.getConnection();
         PreparedStatement ps = c.prepareStatement(

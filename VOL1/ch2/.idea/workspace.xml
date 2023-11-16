@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b76ed975-ef92-4586-b40c-d043a5ea6d3d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../ch02/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/.idea/libraries/libs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/ch02.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/UserDaoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/config/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/connection/ConnectionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/connection/CountingConnectionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/connection/DConnectionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/connection/NConnectionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/connection/SimpleConnectionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ch02/src/springbook/user/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ch01/springbook/user/v7/config/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ch01/springbook/user/v7/config/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ch01/springbook/user/v7/dao/UserDao_v7.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ch01/springbook/user/v7/dao/UserDao_v7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/libs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/connection/ConnectionMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/connection/CountingConnectionMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/connection/DConnectionMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/connection/NConnectionMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/connection/SimpleConnectionMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/domain/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/user/config/applicationContext.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/springbook/user/dao/UserDao.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2YG4fU2kSj2PW3wQEQQdMhkTFUJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/toby-spring/VOL1/ch01",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\toby-spring\VOL1\ch2\src\springbook\user" />
+      <recent name="E:\toby-spring\VOL1\ch2\src\springbook\connection" />
+      <recent name="E:\toby-spring\VOL1\ch2\src\springbook\user\config" />
+      <recent name="E:\toby-spring\VOL1\ch2\src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="springbook.user.config" />
+      <recent name="springbook.domain" />
+      <recent name="springbook.user.dao" />
+      <recent name="springbook.user" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="UserDaoTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="springbook.user.UserDaoTest" />
+      <module name="ch02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="springbook.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="ch02" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="ch02" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="ch02" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="ch02" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="ch02" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="ch02" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="ch02" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.UserDaoTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b76ed975-ef92-4586-b40c-d043a5ea6d3d" name="Changes" comment="" />
+      <created>1700138686114</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700138686114</updated>
+      <workItem from="1700138687093" duration="996000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
