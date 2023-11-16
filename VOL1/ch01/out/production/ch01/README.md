@@ -4,5 +4,5 @@ v2 : SimpleConnectionMaker
 V3 : 인터페이스 도입
 V4 : 팩토리 클래스 도입
 V5 : 어노테이션 + ConnectionMaker
-V5 : 어노테이션 + DataSorce
-V6 : xlm
+V6 : 어노테이션 + DataSorce
+V7 : xlm 방식
