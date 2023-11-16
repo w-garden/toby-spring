@@ -8,7 +8,7 @@ import springbook.user.v6.dao.UserDao_v6;
 
 import java.sql.SQLException;
 
-public class UserDao_v6_count {
+public class UserTest_v6_count {
     public static void main(String[] args) throws SQLException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
         UserDao_v6 dao = context.getBean("userDao", UserDao_v6.class);

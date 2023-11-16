@@ -8,7 +8,7 @@ import springbook.user.v5.config.DaoFactory_v5;
 import java.sql.SQLException;
 
 
-public class UserDao_v5 {
+public class UserTest_v5 {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         ApplicationContext context =  new AnnotationConfigApplicationContext(DaoFactory_v5.class);

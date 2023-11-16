@@ -1,6 +1,5 @@
 package springbook.user.v6.dao;
 
-import springbook.user.connection.ConnectionMaker;
 
 import javax.sql.DataSource;
 
