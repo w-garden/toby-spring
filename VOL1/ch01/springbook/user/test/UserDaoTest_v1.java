@@ -1,31 +1,22 @@
 package springbook.user.test;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import springbook.user.dao.UserDao_v5;
 import springbook.user.domain.User;
-import springbook.user.config.DaoFactory_v5;
+import springbook.user.dao.DUserDao;
 
 import java.sql.SQLException;
 
-
-public class UserTest_v5 {
-
+public class UserDaoTest_v1 {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ApplicationContext context =  new AnnotationConfigApplicationContext(DaoFactory_v5.class);
 
-        UserDao_v5 dao = context.getBean("userDao", UserDao_v5.class);
-
-        int deleteRows=dao.delete();
-
-        System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
-
+        DUserDao dao = new DUserDao();
 
         User user = new User();
+
         user.setId("shc729");
         user.setName("신호철");
         user.setPassword("1234");
-
+        int deleteRows=dao.delete();
+        System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
 
         dao.add(user);
 
@@ -38,7 +29,9 @@ public class UserTest_v5 {
         System.out.println(user2.getId() + " 조회성공");
 
 
+
+
+
+
     }
-
-
 }

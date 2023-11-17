@@ -15,7 +15,7 @@ public class UserDaoTest {
 
         UserDao dao = context.getBean("userDao", UserDao.class);
         int deleteRows=dao.delete();
-            System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
+        System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
 
         User user = new User();
         user.setId("shc729");

@@ -7,7 +7,7 @@ import springbook.user.dao.UserDao_v3;
 
 import java.sql.SQLException;
 
-public class UserTest_v3 {
+public class UserDaoTest_v3 {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         ConnectionMaker connectionMaker = new DConnectionMaker();

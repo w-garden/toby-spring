@@ -1,24 +1,24 @@
 package springbook.user.test;
 
-import springbook.user.connection.SimpleConnectionMaker;
+import springbook.user.config.DaoFactory_v4;
+import springbook.user.dao.UserDao_v4;
 import springbook.user.domain.User;
-import springbook.user.dao.UserDao_v2;
 
 import java.sql.SQLException;
 
-public class UserTest_v2 {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
-        SimpleConnectionMaker simpleConnectionMaker = new SimpleConnectionMaker();
-        UserDao_v2 dao = new UserDao_v2(simpleConnectionMaker);
+public class UserDaoTest_v4 {
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        UserDao_v4 dao = new DaoFactory_v4().userDao();
+        int deleteRows=dao.delete();
+            System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
+
 
         User user = new User();
-
         user.setId("shc729");
         user.setName("신호철");
         user.setPassword("1234");
-        int deleteRows=dao.delete();
-        System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
 
         dao.add(user);
 
@@ -31,9 +31,7 @@ public class UserTest_v2 {
         System.out.println(user2.getId() + " 조회성공");
 
 
-
-
-
-
     }
+
+
 }
