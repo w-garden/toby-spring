@@ -1,5 +1,6 @@
 package springbook.user;
 
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import springbook.user.dao.UserDao;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class UserDaoTest {
-
+    @Test
     public static void main(String[] args) throws SQLException {
         ApplicationContext context = new GenericXmlApplicationContext("springbook/user/config/applicationContext.xml");
 
