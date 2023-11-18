@@ -9,19 +9,19 @@ import springbook.user.domain.User;
 import java.sql.SQLException;
 
 
-public class UserDaoTest {
+public class UserDaoMainTest {
     @Test
     public static void main(String[] args) throws SQLException {
-        ApplicationContext context = new GenericXmlApplicationContext("springbook/user/config/applicationContext.xml");
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
 
         UserDao dao = context.getBean("userDao", UserDao.class);
-        int deleteRows=dao.delete();
+        int deleteRows=dao.deleteAll();
         System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
 
         User user = new User();
         user.setId("shc729");
         user.setName("신호철");
-        user.setPassword("1234");
+        user.setPassword("123456");
 
         dao.add(user);
 
