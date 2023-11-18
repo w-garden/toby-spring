@@ -5,6 +5,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ public class UserDao {
 
     private DataSource dataSource;
 
-    public void setDataSource(SimpleDriverDataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
