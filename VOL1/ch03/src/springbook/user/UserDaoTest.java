@@ -1,6 +1,5 @@
 package springbook.user;
 
-import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import springbook.user.dao.UserDao;
@@ -10,13 +9,12 @@ import java.sql.SQLException;
 
 
 public class UserDaoTest {
-    @Test
+
     public static void main(String[] args) throws SQLException {
         ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
 
         UserDao dao = context.getBean("userDao", UserDao.class);
-        int deleteRows=dao.deleteAll();
-        System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
+        dao.deleteAll();
 
         User user = new User();
         user.setId("shc729");
