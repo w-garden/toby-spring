@@ -70,8 +70,7 @@ public class UserDao {
         user.setId("user00");
         user.setName("신호철");
         user.setPassword("123456");
-        int deleteRows=dao.delete();
-        System.out.println(deleteRows+" rows 삭제(기존 데이터 삭제)\n");
+        dao.delete();
 
         dao.add(user);
 

@@ -14,8 +14,7 @@ public class UserDaoTest_v7 {
         ApplicationContext context = new GenericXmlApplicationContext("springbook/user/config/applicationContext.xml");
 
         UserDao_v7 dao = context.getBean("userDao", UserDao_v7.class);
-        int deleteRows=dao.delete();
-            System.out.println(deleteRows+" 개 데이터 삭제성공!!!");
+        dao.delete();
 
         User user = new User();
         user.setId("shc729");
