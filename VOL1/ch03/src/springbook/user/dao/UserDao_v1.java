@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDao {
+abstract class UserDao_v1 {
 
     private DataSource dataSource;
 
@@ -19,8 +19,7 @@ public class UserDao {
 
     public void add(User user) throws SQLException {
         Connection c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement(
-                "insert into users(id, name, password) values(?,?,?)");
+        PreparedStatement ps = makeStatement(c);
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
         ps.setString(3, user.getPassword());
@@ -34,9 +33,7 @@ public class UserDao {
 
     public User get(String id) throws SQLException {
         Connection c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement(
-                "select * from users where id = ?"
-        );
+        PreparedStatement ps = makeStatement(c);
         ps.setString(1, id);
         ResultSet rs = ps.executeQuery();
         User user = null;
@@ -60,7 +57,7 @@ public class UserDao {
 
         try {
             c = dataSource.getConnection();
-
+            
             ps = makeStatement(c);
 
             ps.executeUpdate();
@@ -84,11 +81,7 @@ public class UserDao {
         }
     }
 
-    private PreparedStatement makeStatement(Connection c) throws SQLException {
-        PreparedStatement ps;
-        ps = c.prepareStatement("delete from users");
-        return ps;
-    }
+    abstract protected PreparedStatement makeStatement(Connection c) throws SQLException;
 
     public int getCount() throws SQLException {
         Connection c = null;
@@ -97,7 +90,8 @@ public class UserDao {
         int count = 0;
         try {
             c = dataSource.getConnection();
-            ps = c.prepareStatement("select count(*) from users");
+            ps = makeStatement(c);
+
             rs = ps.executeQuery();
             rs.next();
             count = rs.getInt(1);
