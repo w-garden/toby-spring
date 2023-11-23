@@ -69,7 +69,7 @@ public class UserDao {
 
         user.setId("user00");
         user.setName("신호철");
-        user.setPassword("123456");
+        user.setPassword("1234567");
         dao.delete();
 
         dao.add(user);
