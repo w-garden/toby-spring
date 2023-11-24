@@ -34,6 +34,7 @@ abstract class UserDao_v1 {
     public User get(String id) throws SQLException {
         Connection c = dataSource.getConnection();
         PreparedStatement ps = makeStatement(c);
+
         ps.setString(1, id);
         ResultSet rs = ps.executeQuery();
         User user = null;
