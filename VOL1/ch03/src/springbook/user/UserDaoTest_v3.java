@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import springbook.user.dao.UserDao;
+import springbook.user.dao.UserDao_v3;
 import springbook.user.domain.User;
 
 import java.sql.SQLException;
@@ -13,17 +13,17 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
-public class UserDaoTest_v9 {
-    UserDao dao;
+public class UserDaoTest_v3 {
+    UserDao_v3 dao;
     private User user1;
     private User user2;
     private User user3;
     @Before
-    public void setUp() throws SQLException {
+    public void setUp() throws Exception {
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");
-        dao = new UserDao();
+        dao = new UserDao_v3();
         dao.setDataSource(new SingleConnectionDataSource("jdbc:mysql://localhost/testdb"
                 , "spring"
                 , "spring"
