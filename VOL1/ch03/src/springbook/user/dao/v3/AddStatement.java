@@ -1,5 +1,6 @@
-package springbook.user.dao;
+package springbook.user.dao.v3;
 
+import springbook.user.dao.StatementStrategy;
 import springbook.user.domain.User;
 
 import java.sql.Connection;

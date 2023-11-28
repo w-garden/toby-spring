@@ -1,7 +1,6 @@
 package springbook.user.dao;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-import springbook.user.dao.v3.DeleteAllStatement;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
@@ -10,30 +9,39 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDao_v4 {
+public class UserDao_v6 {
 
+    private JdbcContext jdbcContext;
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
+        this.jdbcContext = new JdbcContext();
+        this.jdbcContext.setDataSource(dataSource);
         this.dataSource = dataSource;
     }
 
-    public void add(final User user) throws SQLException {
-        class AddStatement implements StatementStrategy {
-            public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
-                PreparedStatement ps = c.prepareStatement(
-                        "insert into users(id, name, password) values(?,?,?)");
-                ps.setString(1, user.getId());
-                ps.setString(2, user.getName());
-                ps.setString(3, user.getPassword());
 
-                return ps;
-            }
-        }
-        StatementStrategy st = new AddStatement();
-        jdbcContextWithStatementStrategy(st);
+    public void add(final User user) throws SQLException {
+        jdbcContext.workWithStatementStrategy(
+                c -> {
+                    PreparedStatement ps = c.prepareStatement(
+                            "insert into users(id, name, password) values(?,?,?)");
+                    ps.setString(1, user.getId());
+                    ps.setString(2, user.getName());
+                    ps.setString(3, user.getPassword());
+
+                    return ps;
+                });
     }
 
+    public void deleteAll() throws Exception {
+        jdbcContext.workWithStatementStrategy(
+                c -> {
+                    PreparedStatement ps = c.prepareStatement("delete from users");
+                    return ps;
+                }
+        );
+    }
 
     public User get(String id) throws SQLException {
         Connection c = dataSource.getConnection();
@@ -55,18 +63,6 @@ public class UserDao_v4 {
 
         if (user == null) throw new EmptyResultDataAccessException(1);
         return user;
-    }
-
-    public void deleteAll() throws Exception {
-        jdbcContextWithStatementStrategy(
-                new DeleteAllStatement() {
-                    public PreparedStatement makePreparedStatement(Connection c)
-                            throws SQLException {
-                        PreparedStatement ps = c.prepareStatement("delete from users");
-                        return ps;
-                    }
-                }
-        );
     }
 
     public int getCount() throws SQLException {
@@ -107,34 +103,5 @@ public class UserDao_v4 {
         }
         return count;
     }
-
-
-    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException {
-        Connection c = null;
-        PreparedStatement ps = null;
-        try {
-            c = dataSource.getConnection();
-
-            ps = stmt.makePreparedStatement(c);
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException e) {
-                }
-            }
-            if (c != null) {
-                try {
-                    c.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
-    }
-
 
 }

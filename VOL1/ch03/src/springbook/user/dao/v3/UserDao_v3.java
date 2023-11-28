@@ -1,6 +1,7 @@
-package springbook.user.dao;
+package springbook.user.dao.v3;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import springbook.user.dao.StatementStrategy;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
@@ -44,6 +45,7 @@ public class UserDao_v3 {
         if (user == null) throw new EmptyResultDataAccessException(1);
         return user;
     }
+
 
     public void deleteAll() throws Exception {
         StatementStrategy st = new DeleteAllStatement();
