@@ -1,4 +1,4 @@
-package springbook.learningtest.template;
+package springbook.learningtest.template.v0;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -29,3 +29,6 @@ public class Calculator {
 
         }
     }
+
+
+}

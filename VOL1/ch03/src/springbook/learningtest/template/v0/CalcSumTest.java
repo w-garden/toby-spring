@@ -1,4 +1,4 @@
-package springbook.learningtest.template;
+package springbook.learningtest.template.v0;
 
 import org.junit.Test;
 
@@ -9,10 +9,11 @@ import static org.junit.Assert.assertThat;
 
 
 public class CalcSumTest {
+
     @Test
     public void sumOfNumbers() throws IOException {
         Calculator calculator = new Calculator();
-        int sum = calculator.calcSum(getClass().getResource("numbers.txt").getPath());
+        int sum = calculator.calcSum(getClass().getResource("../numbers.txt").getPath());
         assertThat(sum, is(10));
     }
 }
