@@ -22,6 +22,7 @@ public class Calculator_v1 {
         return fileReadTemplate(path, sumCallBack);
     }
 
+
     public Integer calcMultiply(String filepath) throws IOException {
         BufferedReaderCallback multiplyCallback = new BufferedReaderCallback() {
             @Override
