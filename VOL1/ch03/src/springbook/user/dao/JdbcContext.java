@@ -1,10 +1,16 @@
 package springbook.user.dao;
 
+import springbook.user.domain.User;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * 1. workWithStatementStrategy, executeSql
+ * 하나의 목적을 위해 서로 긴밀하게 연관되어 동작하기 때문에 한 군데 모았다.
+ */
 public class JdbcContext {
     private DataSource dataSource;
 
@@ -41,14 +47,21 @@ public class JdbcContext {
 
     public void executeSql(final String query) throws SQLException {
         workWithStatementStrategy(
-                new StatementStrategy() {
-                    @Override
-                    public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
-                        return c.prepareStatement(query);
-                    }
-                }
+                c -> c.prepareStatement(query)
         );
     }
 
+    public void executeVarargsSql(final String query, User user) throws SQLException {
+        workWithStatementStrategy(
+                c -> {
+                    PreparedStatement ps = c.prepareStatement(query);
+                    ps.setString(1, user.getId());
+                    ps.setString(2, user.getName());
+                    ps.setString(3, user.getPassword());
+
+                    return ps;
+                }
+        );
+    }
 
 }

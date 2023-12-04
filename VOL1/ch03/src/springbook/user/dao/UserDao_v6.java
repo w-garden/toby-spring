@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * executeSql 사용 하기
+ */
 public class UserDao_v6 {
 
     private JdbcContext jdbcContext;
@@ -22,32 +25,18 @@ public class UserDao_v6 {
 
 
     public void add(final User user) throws SQLException {
-        jdbcContext.workWithStatementStrategy(
-                c -> {
-                    PreparedStatement ps = c.prepareStatement(
-                            "insert into users(id, name, password) values(?,?,?)");
-                    ps.setString(1, user.getId());
-                    ps.setString(2, user.getName());
-                    ps.setString(3, user.getPassword());
+        jdbcContext.executeVarargsSql("insert into users(id, name, password) values(?,?,?)", user);
 
-                    return ps;
-                });
     }
 
     public void deleteAll() throws Exception {
-        jdbcContext.workWithStatementStrategy(
-                c -> {
-                    PreparedStatement ps = c.prepareStatement("delete from users");
-                    return ps;
-                }
-        );
+        this.jdbcContext.executeSql("delete from users");
     }
+
 
     public User get(String id) throws SQLException {
         Connection c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement(
-                "select * from users where id = ?"
-        );
+        PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
         ResultSet rs = ps.executeQuery();
         User user = null;
@@ -84,21 +73,18 @@ public class UserDao_v6 {
                     rs.close();
                 }
             } catch (SQLException e) {
-
             }
             try {
                 if (ps != null) {
                     ps.close();
                 }
             } catch (SQLException e) {
-
             }
             try {
                 if (c != null) {
                     c.close();
                 }
             } catch (SQLException e) {
-
             }
         }
         return count;
