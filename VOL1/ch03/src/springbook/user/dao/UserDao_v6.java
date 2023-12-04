@@ -25,7 +25,7 @@ public class UserDao_v6 {
 
 
     public void add(final User user) throws SQLException {
-        jdbcContext.executeVarargsSql("insert into users(id, name, password) values(?,?,?)", user);
+        jdbcContext.executeSql("insert into users(id, name, password) values(?,?,?)", user.getId(),user.getName(),user.getPassword());
 
     }
 

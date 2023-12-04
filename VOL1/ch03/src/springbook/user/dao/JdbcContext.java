@@ -1,7 +1,5 @@
 package springbook.user.dao;
 
-import springbook.user.domain.User;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,14 +49,13 @@ public class JdbcContext {
         );
     }
 
-    public void executeVarargsSql(final String query, User user) throws SQLException {
+    public void executeSql(final String ...str) throws SQLException {
         workWithStatementStrategy(
                 c -> {
-                    PreparedStatement ps = c.prepareStatement(query);
-                    ps.setString(1, user.getId());
-                    ps.setString(2, user.getName());
-                    ps.setString(3, user.getPassword());
-
+                    PreparedStatement ps = c.prepareStatement(str[0]);
+                    ps.setString(1, str[1]);
+                    ps.setString(2, str[2]);
+                    ps.setString(3, str[3]);
                     return ps;
                 }
         );

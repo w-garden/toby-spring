@@ -1,7 +1,4 @@
 package springbook.learningtest.template.v1;
-
-import springbook.learningtest.template.BufferedReaderCallback;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
