@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * 1. workWithStatementStrategy, executeSql
+ * 1. workWithStatementStrategy, executeSql, executeVarargsSql
  * 하나의 목적을 위해 서로 긴밀하게 연관되어 동작하기 때문에 한 군데 모았다.
  */
 public class JdbcContext {

@@ -1,7 +1,5 @@
 package springbook.learningtest.template.v2;
 
-import springbook.learningtest.template.LineCallback;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,6 +25,8 @@ public class Calculator_v2 {
 
         return lineReadTemplate(filepath, lineCallback, 1);
     }
+
+
 
     public Integer lineReadTemplate(String filepath, LineCallback callback, int intVal) throws IOException {
         BufferedReader br = null;

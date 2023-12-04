@@ -1,15 +1,13 @@
 package springbook.learningtest.template.v3;
 
-import springbook.learningtest.template.LineCallback_Generic;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Calculator_v3 {
-    public Integer calcSum(String path) throws IOException {
+    public Integer calcSum(String filepath) throws IOException {
         LineCallback_Generic<Integer> sumCallBack = (line, value) -> value + Integer.valueOf(line);
-        return lineReadTemplate(path, sumCallBack, 0);
+        return lineReadTemplate(filepath, sumCallBack, 0);
     }
 
     public Integer calcMultiply(String filepath) throws IOException {

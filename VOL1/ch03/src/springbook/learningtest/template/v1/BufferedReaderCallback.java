@@ -1,4 +1,4 @@
-package springbook.learningtest.template;
+package springbook.learningtest.template.v1;
 
 import java.io.BufferedReader;
 import java.io.IOException;

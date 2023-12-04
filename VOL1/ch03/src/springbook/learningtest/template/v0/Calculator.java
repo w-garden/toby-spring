@@ -10,7 +10,7 @@ public class Calculator {
         try {
             br = new BufferedReader(new FileReader(path));
             Integer sum = 0;
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 sum += Integer.valueOf(line);
             }

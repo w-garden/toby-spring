@@ -9,7 +9,6 @@ import static org.junit.Assert.assertThat;
 
 
 public class CalcSumTest {
-
     @Test
     public void sumOfNumbers() throws IOException {
         Calculator calculator = new Calculator();
