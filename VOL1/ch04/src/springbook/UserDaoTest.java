@@ -1,4 +1,4 @@
-package springbook.user;
+package springbook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,26 +19,24 @@ import static org.junit.Assert.assertThat;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
+@ContextConfiguration(locations = "/applicationContext_v1.xml")
 public class UserDaoTest {
+    private UserDao dao;
     @Autowired
-    UserDao dao;
-    //    @Autowired
-//    private ApplicationContext context;
+    private ApplicationContext context;
+
     private User user1;
     private User user2;
     private User user3;
 
     @Before
     public void setUp() {
-
-//        this.dao = context.getBean("userDao", UserDao.class);
+        System.out.println(context);
+        System.out.println(context);
 
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");
-//        ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
-//        dao = this.context.getBean("userDao", UserDao.class);
         dao.deleteAll();
     }
 

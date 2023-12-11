@@ -16,12 +16,14 @@ import static org.junit.Assert.assertThat;
 
 
 public class UserDaoTest_v8 {
-    UserDao_v8 dao;
+
+    private UserDao_v8 dao;
     private User user1;
     private User user2;
     private User user3;
     @Before
     public void setUp() throws Exception {
+
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");

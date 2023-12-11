@@ -32,7 +32,7 @@ public class UserDaoTest_v7 {
     public void setUp() throws SQLException {
         DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost/testdb"
                 , "spring"
-                , "book"
+                , "spring"
                 , true);
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
