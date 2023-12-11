@@ -1,8 +1,8 @@
-package springbook.user.dao;
+package springbook.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import springbook.user.domain.User;
+import springbook.domain.User;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -11,7 +11,7 @@ public class UserDaoJdbc implements UserDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public void setJdbcTemplate(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

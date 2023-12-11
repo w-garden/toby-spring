@@ -1,4 +1,4 @@
-package springbook.user.exception;
+package springbook.exception;
 
 
 public class DuplicateUserIdException extends RuntimeException {

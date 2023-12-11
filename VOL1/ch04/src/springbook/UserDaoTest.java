@@ -5,12 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.user.dao.UserDao;
-import springbook.user.domain.User;
+import springbook.dao.UserDao;
+import springbook.domain.User;
 
 import java.util.List;
 
@@ -18,12 +19,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v1.xml")
 public class UserDaoTest {
     private UserDao dao;
-    @Autowired
-    private ApplicationContext context;
 
     private User user1;
     private User user2;
@@ -31,12 +28,12 @@ public class UserDaoTest {
 
     @Before
     public void setUp() {
-        System.out.println(context);
-        System.out.println(context);
 
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
     }
 

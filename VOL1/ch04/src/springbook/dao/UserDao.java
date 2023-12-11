@@ -1,6 +1,6 @@
-package springbook.user.dao;
+package springbook.dao;
 
-import springbook.user.domain.User;
+import springbook.domain.User;
 
 import java.util.List;
 
