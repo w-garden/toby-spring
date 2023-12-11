@@ -1,26 +1,38 @@
 package springbook;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.dao.UserDao;
 import springbook.domain.User;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = "applicationContext.xml")
 public class UserDaoTest {
+
+    @Autowired
     private UserDao dao;
+
+    @Autowired
+    DataSource dataSource;
 
     private User user1;
     private User user2;
@@ -33,7 +45,7 @@ public class UserDaoTest {
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");
         ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-        dao = context.getBean("userDao", UserDao.class);
+        this.dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
     }
 
@@ -114,7 +126,19 @@ public class UserDaoTest {
     public void duplicateKey() {
         dao.add(user1);
         dao.add(user1);
-
     }
+
+    @Test
+    public void sqlExceptionTranslate() {
+        try {
+            dao.add(user1);
+            dao.add(user1);
+        }catch (DuplicateKeyException ex){
+            SQLException sqlEx = (SQLException) ex.getRootCause();
+            SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
+            assertThat(set.translate(null, null, sqlEx), is(DataAccessException.class));
+        }
+    }
+
 
 }
