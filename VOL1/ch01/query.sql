@@ -3,3 +3,8 @@ create table users (
   , name varchar(20) not null
   , password varchar(10) not null
 );
+
+
+alter table users add level tinyint;
+alter table users add login int;
+alter table users add recommend int;
