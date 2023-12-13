@@ -2,20 +2,19 @@ package springbook;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
-import org.springframework.jdbc.support.SQLExceptionTranslator;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.dao.UserDao;
 import springbook.domain.Level;
 import springbook.domain.User;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -23,11 +22,12 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertThrows;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "applicationContext.xml")
+//@ContextConfiguration(locations = "/test-applicationContext.xml")
 public class UserDaoTest {
 
+    UserDao dao;
     @Autowired
-    private UserDao dao;
+    private ApplicationContext context;
 
     @Autowired
     DataSource dataSource;
@@ -42,7 +42,7 @@ public class UserDaoTest {
         this.user1 = new User("user1", "사용자1", "11111", Level.BASIC, 1, 0);
         this.user2 = new User("user2", "사용자2", "22222", Level.SILVER, 55, 10);
         this.user3 = new User("user3", "사용자3", "33333", Level.GOLD, 100, 40);
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        ApplicationContext context = new GenericXmlApplicationContext("test-applicationContext.xml");
         this.dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
     }
@@ -129,16 +129,20 @@ public class UserDaoTest {
     @Test
     public void update(){
         dao.add(user1);
-
+        dao.add(user2);
+        
         user1.setName("신호철");
         user1.setPassword("springno6");
         user1.setLevel(Level.GOLD);
         user1.setLogin(1000);
         user1.setRecommend(999);
+
         dao.update(user1);
 
         User user1update = dao.get(user1.getId());
         checkSameUser(user1, user1update);
+        User user2same = dao.get(user2.getId());
+        checkSameUser(user2, user2same);
     }
 
 //    @Test
