@@ -31,7 +31,7 @@ public class UserDaoTest_v9 {
         dao = new UserDao();
         dao.setDataSource(new SingleConnectionDataSource("jdbc:mysql://localhost/testdb"
                 , "spring"
-                , "spring "
+                , "spring"
                 , true));
 
         dao.deleteAll();

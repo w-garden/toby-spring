@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,19 +18,26 @@ public class UserDao_v8 {
     public void setJdbcTemplate(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
+
     private RowMapper<User> userMapper =
-            (rs, rowNum) -> {
-                User user = new User();
-                user.setId(rs.getString("id"));
-                user.setName(rs.getString("name"));
-                user.setPassword(rs.getString("password"));
-                return user;
+            new RowMapper<User>() {
+                @Override
+                public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    User user = new User();
+                    user.setId(rs.getString("id"));
+                    user.setName(rs.getString("name"));
+                    user.setPassword(rs.getString("password"));
+                    return user;
+                }
             };
 
 
-
     public void add(final User user) {
-        this.jdbcTemplate.update("insert into users(id,name, password) values (?,?,?)", user.getId(), user.getName(), user.getPassword());
+        this.jdbcTemplate.update("insert into users(id,name, password) values (?,?,?)"
+                , user.getId()
+                , user.getName()
+                , user.getPassword());
     }
 
     public void deleteAll() {
@@ -37,7 +45,17 @@ public class UserDao_v8 {
     }
 
     public User get(String id) throws SQLException {
-        return this.jdbcTemplate.queryForObject("select * from users where id = ?", new Object[]{id}, this.userMapper);
+        return this.jdbcTemplate.queryForObject("select * from users where id = ?"
+                , new Object[]{id}
+                , new RowMapper<User>() {
+                    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        User user = new User();
+                        user.setId(rs.getString("id"));
+                        user.setName(rs.getString("name"));
+                        user.setPassword(rs.getString("password"));
+                        return user;
+                    }
+                });
     }
 
     public int getCount() throws SQLException {

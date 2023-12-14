@@ -18,10 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
 public class UserDaoTest_v5 {
-    @Autowired
     private ApplicationContext context;
     private UserDao dao;
     private User user1;
@@ -29,6 +26,8 @@ public class UserDaoTest_v5 {
     private User user3;
     @Before
     public void setUp() {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+
         System.out.println(this.context);
         System.out.println(this);
         this.dao = context.getBean("userDao", UserDao.class);

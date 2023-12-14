@@ -2,6 +2,7 @@ package springbook.user;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import springbook.user.dao.UserDao_v2;
@@ -12,12 +13,13 @@ import java.sql.SQLException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-
 public class UserDaoTest_v2 {
+    @Autowired
     UserDao_v2 dao;
     private User user1;
     private User user2;
     private User user3;
+
     @Before
     public void setUp() throws Exception {
         this.user1 = new User("user1", "사용자1", "11111");

@@ -1,6 +1,5 @@
-package springbook.user.service;
+package springbook;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,29 +11,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.dao.UserDao;
 import springbook.domain.Level;
 import springbook.domain.User;
+import springbook.user.service.UserService;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "/test-applicationContext.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class UserServiceTest {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
     List<User> users;
 
     @Before
     public void setUp() {
-        ApplicationContext context = new GenericXmlApplicationContext("test-applicationContext.xml");
-        this.userService = context.getBean("userService", UserService.class);
-        this.userDao = context.getBean("userDao", UserDao.class);
         users = Arrays.asList(
                 new User("bumjin", "박범진", "p1", Level.BASIC, 49, 0),
                 new User("joytouch", "강명성", "p2", Level.BASIC, 50, 0),

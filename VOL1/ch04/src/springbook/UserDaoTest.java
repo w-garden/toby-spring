@@ -24,14 +24,13 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "applicationContext.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class UserDaoTest {
 
     @Autowired
     private UserDao dao;
 
-    @Autowired
     DataSource dataSource;
 
     private User user1;
@@ -44,8 +43,6 @@ public class UserDaoTest {
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-        this.dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
     }
 

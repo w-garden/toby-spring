@@ -2,9 +2,11 @@ package springbook.user;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.user.dao.UserDao_v7;
 import springbook.user.domain.User;
 
@@ -13,8 +15,10 @@ import java.sql.SQLException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/test-applicationContext_v7.xml")
 public class UserDaoTest_v7 {
+    @Autowired
     UserDao_v7 dao;
     private User user1;
     private User user2;
@@ -24,8 +28,8 @@ public class UserDaoTest_v7 {
         this.user1 = new User("user1", "사용자1", "11111");
         this.user2 = new User("user2", "사용자2", "22222");
         this.user3 = new User("user3", "사용자3", "33333");
-        ApplicationContext context = new GenericXmlApplicationContext("test-applicationContext_v7.xml");
-        dao = context.getBean(UserDao_v7.class);
+//        ApplicationContext context = new GenericXmlApplicationContext("test-applicationContext_v7.xml");
+//        dao = context.getBean(UserDao_v7.class);
 
         dao.deleteAll();
     }

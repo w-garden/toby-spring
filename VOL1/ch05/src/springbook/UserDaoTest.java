@@ -19,17 +19,13 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertThrows;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "/test-applicationContext.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class UserDaoTest {
-
+    @Autowired
     UserDao dao;
-    @Autowired
-    private ApplicationContext context;
 
-    @Autowired
     DataSource dataSource;
 
     private User user1;
@@ -38,13 +34,9 @@ public class UserDaoTest {
 
     @Before
     public void setUp() {
-
         this.user1 = new User("user1", "사용자1", "11111", Level.BASIC, 1, 0);
         this.user2 = new User("user2", "사용자2", "22222", Level.SILVER, 55, 10);
         this.user3 = new User("user3", "사용자3", "33333", Level.GOLD, 100, 40);
-        ApplicationContext context = new GenericXmlApplicationContext("test-applicationContext.xml");
-        this.dao = context.getBean("userDao", UserDao.class);
-        dao.deleteAll();
     }
 
     @Test
@@ -145,7 +137,7 @@ public class UserDaoTest {
         checkSameUser(user2, user2same);
     }
 
-//    @Test
+//    @ContextTest
 //    public void sqlExceptionTranslate() {
 //        try {
 //            dao.add(user1);
