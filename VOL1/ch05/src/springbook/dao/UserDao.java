@@ -18,6 +18,7 @@ public class UserDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+
     private RowMapper<User> userMapper =
             new RowMapper<User>() {
                 @Override
