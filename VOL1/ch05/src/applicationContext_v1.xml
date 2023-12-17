@@ -10,7 +10,7 @@
         <property name="username" value="spring"/>
         <property name="password" value="spring"/>
     </bean>
-    <bean id="userService" class="springbook.user.service.UserService_v0">
+    <bean id="userService" class="springbook.user.service.UserService_v1">
         <property name="userDao" ref="userDao"/>
     </bean>
 

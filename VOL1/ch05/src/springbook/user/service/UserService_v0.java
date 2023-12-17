@@ -6,7 +6,7 @@ import springbook.domain.User;
 
 import java.util.List;
 
-public class UserService {
+public class UserService_v0 {
     UserDao userDao;
 
     public void setUserDao(UserDao userDao) {

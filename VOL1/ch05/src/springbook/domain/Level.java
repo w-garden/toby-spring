@@ -2,16 +2,21 @@ package springbook.domain;
 
 
 public enum Level {
-    BASIC(1), SILVER(2), GOLD(3);
+    BASIC(1, null), SILVER(2, null), GOLD(3, null);
 
     private int value;
+    private Level next;
 
-    Level(int value) {
+    Level(int value, Level next) {
         this.value = value;
+        this.next = next;
     }
 
     public int intValue() {
         return value;
+    }
+    public Level nextLevel(){
+        return this.next;
     }
 
     public static Level valueOf(int value) {

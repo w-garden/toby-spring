@@ -9,19 +9,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.dao.UserDao;
 import springbook.domain.Level;
 import springbook.domain.User;
-import springbook.user.service.UserService_v0;
+import springbook.user.service.UserService_v1;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-public class UserServiceTest {
+@ContextConfiguration(locations = "/applicationContext_v1.xml")
+public class UserServiceTest_v1 {
     @Autowired
-    private UserService_v0 userService;
+    private UserService_v1 userService;
     @Autowired
     private UserDao userDao;
     List<User> users;
