@@ -2,7 +2,7 @@ package springbook.domain;
 
 
 public enum Level {
-    BASIC(1, null), SILVER(2, null), GOLD(3, null);
+    GOLD(3, null), SILVER(2, GOLD), BASIC(1, SILVER);
 
     private int value;
     private Level next;
@@ -15,7 +15,8 @@ public enum Level {
     public int intValue() {
         return value;
     }
-    public Level nextLevel(){
+
+    public Level nextLevel() {
         return this.next;
     }
 
