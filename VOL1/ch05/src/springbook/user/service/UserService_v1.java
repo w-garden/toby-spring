@@ -26,7 +26,7 @@ public class UserService_v1 {
         }
     }
 
-    private void upgradeLevel(User user) {
+    public void upgradeLevel(User user) {
         /**
          * User오브젝트에게 아래 작업을 처리할수있도록 구현한다.
          */
