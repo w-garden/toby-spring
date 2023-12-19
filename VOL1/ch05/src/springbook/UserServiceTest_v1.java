@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static springbook.user.service.UserService_v1.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.service.UserService_v1.MIN_RECCOMEND_FOR_GOLD;
 
@@ -28,6 +29,7 @@ public class UserServiceTest_v1 {
     private UserDao userDao;
     List<User> users;
 
+
     @Before
     public void setUp() {
         users = Arrays.asList(
@@ -38,7 +40,6 @@ public class UserServiceTest_v1 {
                 new User("green", "오민규", "p5", Level.GOLD, 100, Integer.MAX_VALUE)
         );
     }
-
     @Test
     public void updateLevels() {
         userDao.deleteAll();
@@ -74,6 +75,7 @@ public class UserServiceTest_v1 {
 
     }
 
+
     private void checkLevelUpgraded(User user, boolean upgraded) {
         User userUpdate = userDao.get(user.getId());
         if (upgraded) {
@@ -82,6 +84,42 @@ public class UserServiceTest_v1 {
             assertThat(userUpdate.getLevel(), is(user.getLevel()));
         }
 
+    }
+
+    static class TestUserService extends UserService_v1 {
+        private String id;
+
+        public TestUserService(String id) {
+            this.id = id;
+        }
+
+        @Override
+        protected void upgradeLevel(User user) {
+            if (user.getId().equals(this.id)) {
+                throw new TestUserServiceException();
+            }
+            super.upgradeLevel(user);
+        }
+
+
+    }
+    static class TestUserServiceException extends RuntimeException {
+    }
+    @Test
+    public void upgradeAllOrNothing() {
+        UserService_v1 testUserService = new TestUserService(users.get(3).getId());
+        testUserService.setUserDao(this.userDao);
+        userDao.deleteAll();
+        for (User user : users) {
+            userDao.add(user);
+        }
+        try{
+            testUserService.upgradeLevels();
+            fail("TestUserServiceException expected");
+        }catch (TestUserServiceException e){
+
+        }
+        checkLevelUpgraded(users.get(1), false);
     }
 
 }
