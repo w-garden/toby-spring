@@ -9,8 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.dao.UserDao;
 import springbook.domain.Level;
 import springbook.domain.User;
-import springbook.user.service.UserService_v1;
+import springbook.user.service.UserService_v3;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,10 +22,12 @@ import static springbook.user.service.UserService_v1.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.service.UserService_v1.MIN_RECCOMEND_FOR_GOLD;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v1.xml")
-public class UserServiceTest_v1 {
+@ContextConfiguration(locations = "/applicationContext_v3.xml")
+public class UserServiceTest_v3 {
     @Autowired
-    private UserService_v1 userService;
+    DataSource dataSource;
+    @Autowired
+    private UserService_v3 userService;
     @Autowired
     private UserDao userDao;
     List<User> users;
@@ -39,10 +42,11 @@ public class UserServiceTest_v1 {
                 new User("madnite11", "이상호", "p4", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD),
                 new User("green", "오민규", "p5", Level.GOLD, 100, Integer.MAX_VALUE)
         );
-    }
-    @Test
-    public void updateLevels() {
         userDao.deleteAll();
+    }
+
+    @Test
+    public void updateLevels() throws Exception {
         for (User user : users) {
             userDao.add(user);
         }
@@ -58,7 +62,6 @@ public class UserServiceTest_v1 {
 
     @Test
     public void add() {
-        userDao.deleteAll();
 
         User userWithLevel = users.get(4);
         User userWithoutLevel = users.get(0);
@@ -86,7 +89,7 @@ public class UserServiceTest_v1 {
 
     }
 
-    static class TestUserService extends UserService_v1 {
+    static class TestUserService extends UserService_v3 {
         private String id;
 
         public TestUserService(String id) {
@@ -103,24 +106,22 @@ public class UserServiceTest_v1 {
 
 
     }
+
     static class TestUserServiceException extends RuntimeException {
     }
 
-    /**
-    테스트가 실패한다
-     */
     @Test
-    public void upgradeAllOrNothing() {
-        UserService_v1 testUserService = new TestUserService(users.get(3).getId());
+    public void upgradeAllOrNothing() throws Exception {
+        UserService_v3 testUserService = new TestUserService(users.get(3).getId());
         testUserService.setUserDao(this.userDao);
-        userDao.deleteAll();
+        testUserService.setDataSource(this.dataSource);
         for (User user : users) {
             userDao.add(user);
         }
-        try{
+        try {
             testUserService.upgradeLevels();
             fail("TestUserServiceException expected");
-        }catch (TestUserServiceException e){
+        } catch (TestUserServiceException e) {
 
         }
         checkLevelUpgraded(users.get(1), false);
