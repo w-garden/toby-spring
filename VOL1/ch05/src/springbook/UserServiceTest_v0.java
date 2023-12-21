@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
-public class UserServiceTest {
+public class UserServiceTest_v0 {
     @Autowired
     private UserService_v0 userService;
     @Autowired

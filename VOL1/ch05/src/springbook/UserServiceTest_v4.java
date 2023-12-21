@@ -35,7 +35,6 @@ public class UserServiceTest_v4 {
     PlatformTransactionManager transactionManager;
     List<User> users;
 
-
     @Before
     public void setUp() {
         users = Arrays.asList(
@@ -81,7 +80,6 @@ public class UserServiceTest_v4 {
 
     }
 
-
     private void checkLevelUpgraded(User user, boolean upgraded) {
         User userUpdate = userDao.get(user.getId());
         if (upgraded) {
@@ -106,13 +104,9 @@ public class UserServiceTest_v4 {
             }
             super.upgradeLevel(user);
         }
-
-
     }
-
     static class TestUserServiceException extends RuntimeException {
     }
-
     @Test
     public void upgradeAllOrNothing() throws Exception {
         UserService_v4 testUserService = new TestUserService(users.get(3).getId());
