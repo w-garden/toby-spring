@@ -10,6 +10,7 @@ public class User {
     int recommend;
     String email;
 
+
     public User() {
     }
 
