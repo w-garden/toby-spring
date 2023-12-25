@@ -9,19 +9,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.dao.UserDao;
 import springbook.domain.Level;
 import springbook.domain.User;
-import springbook.user.service.UserService_v1;
 import springbook.user.service.UserService_v2;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import static springbook.user.service.UserService_v1.MIN_LOGCOUNT_FOR_SILVER;
-import static springbook.user.service.UserService_v1.MIN_RECCOMEND_FOR_GOLD;
+import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext_v2.xml")
