@@ -57,9 +57,6 @@ public class UserService_v2 {
         userDao.update(user);
     }
 
-    public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
-    public static final int MIN_RECCOMEND_FOR_GOLD = 30;
-
     private boolean canUpgradeLevel(User user) {
         Level currentLevel = user.getLevel();
         switch (currentLevel) {

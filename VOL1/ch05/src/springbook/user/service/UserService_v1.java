@@ -6,6 +6,9 @@ import springbook.domain.User;
 
 import java.util.List;
 
+import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
+
 /**
  * upgradeLevel() 리팩토링
  */
@@ -38,8 +41,7 @@ public class UserService_v1 {
         userDao.update(user);
     }
 
-    public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
-    public static final int MIN_RECCOMEND_FOR_GOLD = 30;
+
 
     private boolean canUpgradeLevel(User user) {
         Level currentLevel = user.getLevel();

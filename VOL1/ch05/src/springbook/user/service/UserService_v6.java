@@ -21,6 +21,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Properties;
 
+import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
+
 /**
  * 스프링 DI 적용하여 메일 서비스 구현
  */
@@ -98,8 +101,6 @@ public class UserService_v6 {
         }
     }
 
-    public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
-    public static final int MIN_RECCOMEND_FOR_GOLD = 30;
 
     private boolean canUpgradeLevel(User user) {
         Level currentLevel = user.getLevel();

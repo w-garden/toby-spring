@@ -21,6 +21,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Properties;
 
+import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
+
 /**
  * 메일서비스 도입하고 추상화 진행하기
  */
@@ -96,8 +99,6 @@ public class UserService_v5 {
         }
     }
 
-    public static final int MIN_LOGCOUNT_FOR_SILVER = 50;
-    public static final int MIN_RECCOMEND_FOR_GOLD = 30;
 
     private boolean canUpgradeLevel(User user) {
         Level currentLevel = user.getLevel();
