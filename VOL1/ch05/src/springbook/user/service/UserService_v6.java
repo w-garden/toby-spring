@@ -1,6 +1,7 @@
 package springbook.user.service;
 
-import com.sun.xml.internal.org.jvnet.mimepull.MIMEMessage;
+import org.springframework.mail.MailMessage;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -17,14 +18,13 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Properties;
 
 /**
- * 메일서비스 도입하고 추상화 진행하기
+ * 스프링 DI 적용하여 메일 서비스 구현
  */
-public class UserService_v5 {
+public class UserService_v6 {
     UserDao userDao;
 
     public void setUserDao(UserDao userDao) {
@@ -37,6 +37,11 @@ public class UserService_v5 {
         this.transactionManager = transactionManager;
     }
 
+    private MailSender mailSender;
+
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     public void upgradeLevels() {
         TransactionStatus status =
@@ -62,9 +67,6 @@ public class UserService_v5 {
     }
 
     private void sendUpgradeEMail(User user) {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("mail.server.com");
-
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setFrom("w.garden316@gmail.com");
