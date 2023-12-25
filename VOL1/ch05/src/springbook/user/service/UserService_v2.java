@@ -12,6 +12,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
+
 /**
  * 트랜잭션 동기화 작업
  */
