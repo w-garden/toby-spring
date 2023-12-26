@@ -61,7 +61,7 @@ public class UserServiceTest {
     
     //MockUserDao, MockMailSender 사용
     @Test
-    public void upgradesLevel() throws Exception {
+    public void upgradeLevels() throws Exception {
         UserServiceImpl userServiceImpl = new UserServiceImpl();
 
         //  for (User user : users) userDao.add(user); 대체
@@ -97,6 +97,10 @@ public class UserServiceTest {
         assertThat(updated.getLevel(), is(expectedLevel));
     }
 
+    @Test
+    public void mockUpgradeLevels() throws Exception {
+
+    }
     @Test
     public void add() {
 
