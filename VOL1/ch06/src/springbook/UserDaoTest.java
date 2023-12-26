@@ -8,7 +8,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.dao.UserDao;
+import springbook.dao.UserDaoJdbc;
 import springbook.domain.Level;
 import springbook.domain.User;
 
@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(locations = "/applicationContext.xml")
 public class UserDaoTest {
     @Autowired
-    UserDao dao;
+    UserDaoJdbc dao;
 
     DataSource dataSource;
 
@@ -32,6 +32,7 @@ public class UserDaoTest {
 
     @Before
     public void setUp() {
+        dao.deleteAll();
         this.user1 = new User("user1", "사용자1", "11111", Level.BASIC, 1, 0);
         this.user2 = new User("user2", "사용자2", "22222", Level.SILVER, 55, 10);
         this.user3 = new User("user3", "사용자3", "33333", Level.GOLD, 100, 40);

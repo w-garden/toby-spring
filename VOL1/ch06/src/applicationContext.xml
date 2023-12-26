@@ -10,20 +10,25 @@
         <property name="username" value="spring"/>
         <property name="password" value="spring"/>
     </bean>
-    <bean id="userService" class="springbook.user.service.UserService">
-        <property name="userDao" ref="userDao"/>
+
+    <bean id="userService" class="springbook.user.service.UserServiceTx">
         <property name="transactionManager" ref="transactionManager"/>
+        <property name="userService" ref="userServiceImpl"/>
+    </bean>
+
+    <bean id="userServiceImpl" class="springbook.user.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
-    <bean id="userDao" class="springbook.dao.UserDao">
+    <bean id="userDao" class="springbook.dao.UserDaoJdbc">
         <property name="jdbcTemplate" ref="dataSource"/>
     </bean>
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-<!--
+    <!-- 실제 테스트 불가능
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="mail.server.com"/>
     </bean>
