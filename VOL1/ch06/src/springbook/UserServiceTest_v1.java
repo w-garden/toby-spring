@@ -4,13 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -36,9 +33,12 @@ import static org.mockito.Mockito.*;
 import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
+/**
+ * 트랜잭션 프록시 팩토리빈 사용해서 구현하기
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-public class UserServiceTest {
+@ContextConfiguration(locations = "/applicationContext_v1.xml")
+public class UserServiceTest_v1 {
     @Autowired
     DataSource dataSource;
     @Autowired

@@ -1,4 +1,4 @@
-package sample;
+package springbook.learningtest.dynamicProxy;
 /**
  * 다이내믹 프록시를 이용한 프록시 만들기-Target Class
  */

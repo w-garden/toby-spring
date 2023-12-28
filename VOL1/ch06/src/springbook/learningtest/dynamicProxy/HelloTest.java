@@ -1,6 +1,5 @@
-package sample;
+package springbook.learningtest.dynamicProxy;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Proxy;
@@ -23,6 +22,7 @@ public class HelloTest {
         assertThat(proxyHello.sayHello("Hochul"), is("HELLO HOCHUL"));
         assertThat(proxyHello.sayHi("Hochul"), is("HI HOCHUL"));
         assertThat(proxyHello.sayThankYou("Hochul"), is("THANK YOU HOCHUL"));
+
 
 
         Hello dynamicProxyHello = (Hello) Proxy.newProxyInstance(

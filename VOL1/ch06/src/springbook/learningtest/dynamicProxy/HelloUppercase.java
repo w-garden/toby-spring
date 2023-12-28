@@ -1,4 +1,4 @@
-package sample;
+package springbook.learningtest.dynamicProxy;
 
 public class HelloUppercase implements Hello {
     Hello hello;
