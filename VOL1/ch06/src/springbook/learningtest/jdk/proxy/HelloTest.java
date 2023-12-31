@@ -1,4 +1,4 @@
-package springbook.learningtest.dynamicProxy;
+package springbook.learningtest.jdk.proxy;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package springbook.learningtest.dynamicProxy;
+package springbook.learningtest.jdk.proxy;
 
 /**
  * 다이내믹 프록시를 이용한 프록시 만들기-Interface
