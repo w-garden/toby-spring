@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 /**
  * 다이내믹 프록시를 이용한 프록시 만들기-Client
  */
-public class HelloTest {
+public class DynamicProxyTest_v1 {
     @Test
     public void simpleProxy() {
         Hello hello = new HelloTarget(); //target은 인터페이스를 통해서 접근하다

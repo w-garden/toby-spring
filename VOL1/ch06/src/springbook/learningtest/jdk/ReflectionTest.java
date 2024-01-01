@@ -1,6 +1,5 @@
 package springbook.learningtest.jdk;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
@@ -26,3 +25,4 @@ public class ReflectionTest {
         assertThat((Character) charMethod.invoke(name, 0), is('S'));
     }
 }
+

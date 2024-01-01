@@ -33,7 +33,7 @@ import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 /**
- * 트랜잭션 프록시 팩토리빈 사용해서 구현하기
+ * 트랜잭션 프록시 팩토리빈 사용해서 구현하기(upgradeAllOrNothing method 중심으로)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext_v1.xml")
@@ -67,42 +67,8 @@ public class UserServiceTest_v1 {
         userDao.deleteAll();
     }
 
-    //MockUserDao, MockMailSender 사용
     @Test
     public void upgradeLevels() throws Exception {
-        UserServiceImpl userServiceImpl = new UserServiceImpl();
-
-        //  for (User user : users) userDao.add(user); 대체
-        MockUserDao mockUserDao = new MockUserDao(this.users);
-        userServiceImpl.setUserDao(mockUserDao);
-
-        MockMailSender mockMailSender = new MockMailSender();
-        userServiceImpl.setMailSender(mockMailSender);
-
-        userServiceImpl.upgradeLevels();
-        
-        /* 
-          checkLevelUpgraded(users.get(0), false);
-          checkLevelUpgraded(users.get(1), true);
-          checkLevelUpgraded(users.get(2), false);
-          checkLevelUpgraded(users.get(3), true);
-          checkLevelUpgraded(users.get(4), false);
-          대체
-         */
-        List<User> updated = mockUserDao.getUpdated();
-        assertThat(updated.size(), is(2));
-        checkUserAndLevel(updated.get(0), "joytouch", Level.SILVER);
-        checkUserAndLevel(updated.get(1), "madnite11", Level.GOLD);
-
-        List<String> request = mockMailSender.getRequests();
-        assertThat(request.size(), is(2));
-        assertThat(request.get(0), is(users.get(1).getEmail()));
-        assertThat(request.get(1), is(users.get(3).getEmail()));
-    }
-
-
-    @Test
-    public void mockUpgradeLevels() throws Exception {
         UserServiceImpl userServiceImpl = new UserServiceImpl();
         UserDao mockUserDao = mock(UserDao.class);
         when(mockUserDao.getAll()).thenReturn(this.users);
@@ -175,67 +141,6 @@ public class UserServiceTest_v1 {
     static class TestUserServiceException extends RuntimeException {
     }
 
-    static class MockMailSender implements MailSender {
-        private List<String> requests = new ArrayList<>();
-
-        public List<String> getRequests() {
-            return requests;
-        }
-
-        @Override
-        public void send(SimpleMailMessage mailMessage) throws MailException {
-            requests.add(mailMessage.getTo()[0]);
-        }
-
-        @Override
-        public void send(SimpleMailMessage[] mailMessage) throws MailException {
-
-        }
-    }
-
-    static class MockUserDao implements UserDao {
-        private List<User> users;
-        private List<User> updated = new ArrayList<>();
-
-        public MockUserDao(List<User> users) {
-            this.users = users;
-        }
-
-        public List<User> getUpdated() {
-            return updated;
-        }
-
-        @Override
-        public List<User> getAll() {
-            return this.users;
-        }
-
-        @Override
-        public void update(User user) {
-            updated.add(user);
-        }
-
-        @Override
-        public void add(User user) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void deleteAll() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public User get(String id) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public int getCount() {
-            throw new UnsupportedOperationException();
-        }
-    }
-
 
     @Test
     public void upgradeAllOrNothing() throws Exception {
@@ -260,7 +165,7 @@ public class UserServiceTest_v1 {
     }
 
     @Test
-    public void upgradeAllOrNothing_proxy() throws Exception {
+    public void upgradeAllOrNothing_dynamicProxy() throws Exception {
         TestUserService testUserService = new TestUserService(users.get(3).getId());
         testUserService.setUserDao(this.userDao);
         testUserService.setMailSender(mailSender);
@@ -293,14 +198,9 @@ public class UserServiceTest_v1 {
         testUserService.setUserDao(this.userDao);
         testUserService.setMailSender(mailSender);
 
-        TxProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", TxProxyFactoryBean.class);
+        TxProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", TxProxyFactoryBean.class); // &을 붙여서 팩토리빈 자체를 가져온다
         txProxyFactoryBean.setTarget(testUserService);
         UserService txUserService = (UserService) txProxyFactoryBean.getObject();
-
-        TransactionHandler txHandler = new TransactionHandler();
-        txHandler.setTarget(testUserService);
-        txHandler.setTransactionManager(transactionManager);
-        txHandler.setPattern("upgradeLevels");
 
         for (User user : users) userDao.add(user);
 
@@ -308,7 +208,6 @@ public class UserServiceTest_v1 {
             txUserService.upgradeLevels();
             fail("TestUserServiceException expected");
         } catch (TestUserServiceException e) {
-
         }
         checkLevelUpgraded(users.get(1), false);
     }

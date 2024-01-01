@@ -2,6 +2,7 @@ package springbook.learningtest.jdk.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 public class UppercaseHandler implements InvocationHandler {
     Object target;
