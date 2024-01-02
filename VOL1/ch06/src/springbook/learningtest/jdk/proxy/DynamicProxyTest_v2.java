@@ -16,10 +16,10 @@ public class DynamicProxyTest_v2 {
     @Test
     public void proxyFactoryBean() {
         ProxyFactoryBean pfBean = new ProxyFactoryBean();
-        pfBean.setTarget(new HelloTarget());
-        pfBean.addAdvice(new UppercaseAdvice()); //부가기능을 담은 어드바이스
+        pfBean.setTarget(new HelloTarget()); //타깃 설정
+        pfBean.addAdvice(new UppercaseAdvice()); //부가기능을 담은 어드바이스. 여러 개 추가도 가능
 
-        Hello proxiedHello = (Hello) pfBean.getObject();
+        Hello proxiedHello = (Hello) pfBean.getObject(); //FactoryBean이므로 getObject로 생성된 프록시를 가져온다.
         assertThat(proxiedHello.sayHello("Hochul"), is("HELLO HOCHUL"));
         assertThat(proxiedHello.sayHi("Hochul"), is("HI HOCHUL"));
         assertThat(proxiedHello.sayThankYou("Hochul"), is("THANK YOU HOCHUL"));

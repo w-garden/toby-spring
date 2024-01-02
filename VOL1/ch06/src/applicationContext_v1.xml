@@ -40,7 +40,7 @@
     -->
     <bean id="mailSender" class="springbook.user.service.DummyMailSender"/>
 
-    <bean id="message" class="springbook.learningtest.factoryBean.MessageFactoryBean">
+    <bean id="message" class="springbook.learningtest.jdk.factoryBean.MessageFactoryBean">
         <property name="text" value="Factory Bean"/>
     </bean>
 </beans>

@@ -1,4 +1,4 @@
-package springbook.learningtest.factoryBean;
+package springbook.learningtest.jdk.factoryBean;
 
 public class Message {
     String text;
