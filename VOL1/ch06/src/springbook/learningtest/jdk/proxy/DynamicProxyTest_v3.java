@@ -8,21 +8,13 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.NameMatchMethodPointcut;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
+/**
+ *  ProxyFactoryBean 적용(addAdvice + pointCut)
+ */
 public class DynamicProxyTest_v3 {
-
-    @Test
-    public void proxyFactoryBean() {
-        ProxyFactoryBean pfBean = new ProxyFactoryBean();
-        pfBean.setTarget(new HelloTarget());
-        pfBean.addAdvice(new UppercaseAdvice()); //부가기능을 담은 어드바이스
-
-        Hello proxiedHello = (Hello) pfBean.getObject();
-        assertThat(proxiedHello.sayHello("Hochul"), is("HELLO HOCHUL"));
-        assertThat(proxiedHello.sayHi("Hochul"), is("HI HOCHUL"));
-        assertThat(proxiedHello.sayThankYou("Hochul"), is("THANK YOU HOCHUL"));
-    }
 
     @Test
     public void pointcutAdvisor() {
@@ -37,7 +29,7 @@ public class DynamicProxyTest_v3 {
         Hello proxiedHello = (Hello) pfBean.getObject();
         assertThat(proxiedHello.sayHello("Hochul"), is("HELLO HOCHUL"));
         assertThat(proxiedHello.sayHi("Hochul"), is("HI HOCHUL"));
-        assertThat(proxiedHello.sayThankYou("Hochul"), is("Thank You Hochul"));
+        assertThat(proxiedHello.sayThankYou("Hochul"), not("THANK YOU HOCHUL")); //pointcout 조건에 맞지 않으므로 부가기능 적용안됨
     }
 
     static class UppercaseAdvice implements MethodInterceptor {

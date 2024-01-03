@@ -1,16 +1,16 @@
 package springbook.learningtest.jdk.proxy;
 
-import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactoryBean;
 
-import java.lang.reflect.Proxy;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
+/**
+ ProxyFactoryBean 적용(addAdvice)
+ */
 public class DynamicProxyTest_v2 {
 
     @Test
