@@ -1,10 +1,9 @@
-package springbook.user.service;
+package springbook.service;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.lang.reflect.Proxy;
-import java.util.Calendar;
 
 public class TxProxyFactoryBean implements FactoryBean<Object> {
     Object target;

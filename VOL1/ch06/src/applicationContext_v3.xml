@@ -11,13 +11,7 @@
         <property name="password" value="spring"/>
     </bean>
 
-    <!-- decorator -->
-    <bean id="userService" class="springbook.service.UserServiceTx">
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="userService" ref="userServiceImpl"/>
-    </bean>
-    <!-- target -->
-    <bean id="userServiceImpl" class="springbook.service.UserServiceImpl">
+    <bean id="userService" class="springbook.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
         <property name="mailSender" ref="mailSender"/>
     </bean>
@@ -25,15 +19,33 @@
     <bean id="userDao" class="springbook.dao.UserDaoJdbc">
         <property name="jdbcTemplate" ref="dataSource"/>
     </bean>
+
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!-- 실제 테스트 불가능
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="mail.server.com"/>
+    <!-- 트랜잭션 어드바이스 빈 설정 -->
+    <bean id="transactionAdvice" class="springbook.service.TransactionAdvice">
+        <property name="transactionManager" ref="transactionManager"/>
     </bean>
-    -->
+
+    <!-- 포인트 컷 빈 설정 -->
+    <bean id="transactionPointcut" class="springbook.service.NameMatchClassMethodPointcut">
+        <property name="mappedClassName" value="*ServiceImpl"/>
+        <property name="mappedName" value="upgrade*"/>
+    </bean>
+
+    <!-- 어드바이저 빈 설정 -->
+    <bean id="transactionAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="pointcut" ref="transactionPointcut"/>
+        <property name="advice" ref="transactionAdvice"/>
+    </bean>
+
+    <!--빈 후처리기를 통한 자동 프록시 생성기 등록 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="testUserService" class="springbook.UserServiceTest_v3$TestUserServiceImpl" parent="userService"/>
+
     <bean id="mailSender" class="springbook.service.DummyMailSender"/>
 
     <bean id="message" class="springbook.learningtest.jdk.factoryBean.MessageFactoryBean">

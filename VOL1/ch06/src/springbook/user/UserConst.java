@@ -1,4 +1,4 @@
-package springbook.user.service;
+package springbook.user;
 
 public class UserConst {
     public static final int MIN_LOGCOUNT_FOR_SILVER = 50;

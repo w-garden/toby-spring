@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -16,10 +15,10 @@ import springbook.dao.UserDao;
 import springbook.dao.UserDaoJdbc;
 import springbook.domain.Level;
 import springbook.domain.User;
-import springbook.service.*;
+import springbook.service.UserService;
+import springbook.service.UserServiceImpl;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,17 +30,17 @@ import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 /**
- * 트랜잭션 프록시 팩토리빈 사용해서 구현하기(upgradeAllOrNothing method 중심으로)
+ * DefaultAdvisorAutoProxyCreator 빈후처리기 이용해서 테스트
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v1.xml")
-public class UserServiceTest_v1 {
+@ContextConfiguration(locations = "/applicationContext_v3.xml")
+public class UserServiceTest_v3 {
     @Autowired
     DataSource dataSource;
     @Autowired
     private UserService userService;
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private UserService testUserService;
     @Autowired
     private UserDaoJdbc userDao;
     @Autowired
@@ -99,8 +98,8 @@ public class UserServiceTest_v1 {
         User userWithoutLevel = users.get(0);
         userWithoutLevel.setLevel(null);
 
-        userServiceImpl.add(userWithLevel);
-        userServiceImpl.add(userWithoutLevel);
+        userService.add(userWithLevel);
+        userService.add(userWithoutLevel);
 
         User userWithLevelRead = userDao.get(userWithLevel.getId());
         User userWithoutLevelRead = userDao.get(userWithoutLevel.getId());
@@ -120,18 +119,13 @@ public class UserServiceTest_v1 {
 
     }
 
-    static class TestUserService extends UserServiceImpl {
-        private String id;
-
-        public TestUserService(String id) {
-            this.id = id;
-        }
+    static class TestUserServiceImpl extends UserServiceImpl {
+        private String id = "madnite1";
+//        private String id = "joytouch";
 
         @Override
         protected void upgradeLevel(User user) {
-            if (user.getId().equals(this.id)) {
-                throw new TestUserServiceException();
-            }
+            if (user.getId().equals(this.id)) throw new TestUserServiceException();
             super.upgradeLevel(user);
         }
     }
@@ -139,74 +133,16 @@ public class UserServiceTest_v1 {
     static class TestUserServiceException extends RuntimeException {
     }
 
-
     @Test
-    public void upgradeAllOrNothing() throws Exception {
-        TestUserService testUserService = new TestUserService(users.get(3).getId());
-        testUserService.setUserDao(this.userDao);
-        testUserService.setMailSender(mailSender);
-
-        UserServiceTx txUserService = new UserServiceTx();
-        txUserService.setTransactionManager(transactionManager);
-        txUserService.setUserService(testUserService);
-
-        for (User user : users) {
-            userDao.add(user);
-        }
-        try {
-            txUserService.upgradeLevels();
-            fail("TestUserServiceException expected");
-        } catch (TestUserServiceException e) {
-
-        }
-        checkLevelUpgraded(users.get(1), false);
-    }
-
-    @Test
-    public void upgradeAllOrNothing_dynamicProxy() throws Exception {
-        TestUserService testUserService = new TestUserService(users.get(3).getId());
-        testUserService.setUserDao(this.userDao);
-        testUserService.setMailSender(mailSender);
-
-        TransactionHandler txHandler = new TransactionHandler();
-        txHandler.setTarget(testUserService);
-        txHandler.setTransactionManager(transactionManager);
-        txHandler.setPattern("upgradeLevels");
-
-        UserService txUserService = (UserService) Proxy.newProxyInstance(
-                getClass().getClassLoader(),
-                new Class[]{UserService.class},
-                txHandler
-        );
+    public void upgradeAllOrNothing() {
 
         for (User user : users) userDao.add(user);
-
         try {
-            txUserService.upgradeLevels();
-            fail("TestUserServiceException expected");
-        } catch (TestUserServiceException e) {
-
-        }
-        checkLevelUpgraded(users.get(1), false);
-    }
-    @Test
-    @DirtiesContext
-    public void upgradeAllOrNothing_factoryBean() throws Exception {
-        TestUserService testUserService = new TestUserService(users.get(3).getId());
-        testUserService.setUserDao(this.userDao);
-        testUserService.setMailSender(mailSender);
-
-        TxProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", TxProxyFactoryBean.class); // &을 붙여서 팩토리빈 자체를 가져온다
-        txProxyFactoryBean.setTarget(testUserService);
-        UserService txUserService = (UserService) txProxyFactoryBean.getObject();
-
-        for (User user : users) userDao.add(user);
-
-        try {
-            txUserService.upgradeLevels();
+            this.testUserService.upgradeLevels();
             fail("TestUserServiceException expected");
         } catch (TestUserServiceException e) {
         }
+
         checkLevelUpgraded(users.get(1), false);
     }
 

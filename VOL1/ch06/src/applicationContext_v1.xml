@@ -12,15 +12,15 @@
     </bean>
 
     <!-- decorator -->
-    <bean id="userService" class="springbook.user.service.TxProxyFactoryBean">
+    <bean id="userService" class="springbook.service.TxProxyFactoryBean">
         <property name="target" ref="userServiceImpl"/>
         <property name="transactionManager" ref="transactionManager"/>
         <property name="pattern" value="upgradeLevels"/>
-        <property name="serviceInterface" value="springbook.user.service.UserService"/>
+        <property name="serviceInterface" value="springbook.service.UserService"/>
     </bean>
 
     <!-- target -->
-    <bean id="userServiceImpl" class="springbook.user.service.UserServiceImpl">
+    <bean id="userServiceImpl" class="springbook.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
         <property name="mailSender" ref="mailSender"/>
     </bean>
@@ -38,7 +38,7 @@
         <property name="host" value="mail.server.com"/>
     </bean>
     -->
-    <bean id="mailSender" class="springbook.user.service.DummyMailSender"/>
+    <bean id="mailSender" class="springbook.service.DummyMailSender"/>
 
     <bean id="message" class="springbook.learningtest.jdk.factoryBean.MessageFactoryBean">
         <property name="text" value="Factory Bean"/>

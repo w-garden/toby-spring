@@ -21,7 +21,7 @@
     </bean>
 
     <!-- target -->
-    <bean id="userServiceImpl" class="springbook.user.service.UserServiceImpl">
+    <bean id="userServiceImpl" class="springbook.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
         <property name="mailSender" ref="mailSender"/>
     </bean>
@@ -35,7 +35,7 @@
     </bean>
 
     <!-- 트랜잭션 어드바이스 빈 설정 -->
-    <bean id="transactionAdvice" class="springbook.user.service.TransactionAdvice">
+    <bean id="transactionAdvice" class="springbook.service.TransactionAdvice">
         <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
@@ -50,7 +50,7 @@
         <property name="advice" ref="transactionAdvice"/>
     </bean>
 
-    <bean id="mailSender" class="springbook.user.service.DummyMailSender"/>
+    <bean id="mailSender" class="springbook.service.DummyMailSender"/>
 
     <bean id="message" class="springbook.learningtest.jdk.factoryBean.MessageFactoryBean">
         <property name="text" value="Factory Bean"/>

@@ -17,10 +17,9 @@ import springbook.dao.UserDao;
 import springbook.dao.UserDaoJdbc;
 import springbook.domain.Level;
 import springbook.domain.User;
-import springbook.user.service.*;
+import springbook.service.*;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,8 +27,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
-import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
-import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
+import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 /**
 어드바이저 사용해서 테스트

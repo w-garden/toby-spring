@@ -1,4 +1,4 @@
-package springbook.user.service;
+package springbook.service;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -8,8 +8,8 @@ import springbook.domain.User;
 
 import java.util.List;
 
-import static springbook.user.service.UserConst.MIN_LOGCOUNT_FOR_SILVER;
-import static springbook.user.service.UserConst.MIN_RECCOMEND_FOR_GOLD;
+import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 
 public class UserServiceImpl implements UserService {
