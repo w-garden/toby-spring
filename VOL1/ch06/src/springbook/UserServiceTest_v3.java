@@ -61,7 +61,6 @@ public class UserServiceTest_v3 {
                 new User("madnite11", "이상호", "p4", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD, "madnite11@naver.com"),
                 new User("green", "오민규", "p5", Level.GOLD, 100, Integer.MAX_VALUE, "green@naver.com")
         );
-        userDao.deleteAll();
     }
 
     @Test
@@ -93,6 +92,7 @@ public class UserServiceTest_v3 {
 
     @Test
     public void add() {
+        userDao.deleteAll();
 
         User userWithLevel = users.get(4);
         User userWithoutLevel = users.get(0);
@@ -120,7 +120,7 @@ public class UserServiceTest_v3 {
     }
 
     static class TestUserServiceImpl extends UserServiceImpl {
-        private String id = "madnite1";
+        private String id = "madnite11";
 //        private String id = "joytouch";
 
         @Override
@@ -135,7 +135,7 @@ public class UserServiceTest_v3 {
 
     @Test
     public void upgradeAllOrNothing() {
-
+        userDao.deleteAll();
         for (User user : users) userDao.add(user);
         try {
             this.testUserService.upgradeLevels();
@@ -144,6 +144,12 @@ public class UserServiceTest_v3 {
         }
 
         checkLevelUpgraded(users.get(1), false);
+    }
+
+    @Test
+    public void advisorAutoProxyCreator(){
+        //모든 JDK 다이내믹 프록시 방식으로 만들어지는 프록시는 Proxy 클래스의 서브클래스이다
+        assertThat(testUserService, is(java.lang.reflect.Proxy.class));
     }
 
 

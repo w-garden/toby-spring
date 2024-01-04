@@ -32,6 +32,8 @@
     <!-- 포인트 컷 빈 설정 -->
     <bean id="transactionPointcut" class="springbook.service.NameMatchClassMethodPointcut">
         <property name="mappedClassName" value="*ServiceImpl"/>
+        <!-- 실패 테스트 -->
+<!--        <property name="mappedClassName" value="*NotServiceImpl"/>-->
         <property name="mappedName" value="upgrade*"/>
     </bean>
 
@@ -48,7 +50,7 @@
 
     <bean id="mailSender" class="springbook.service.DummyMailSender"/>
 
-    <bean id="message" class="springbook.learningtest.jdk.factoryBean.MessageFactoryBean">
+    <bean id="message" class="springbook.learningtest.spring.factoryBean.MessageFactoryBean">
         <property name="text" value="Factory Bean"/>
     </bean>
 </beans>
