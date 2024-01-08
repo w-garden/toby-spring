@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,12 +31,11 @@ import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 /**
- * aop 네임스페이스 선언
- * TransactionInterceptor 도입
+ * tx 네임스페이스 선언
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v5.xml")
-public class UserServiceTest_v5 {
+@ContextConfiguration(locations = "/applicationContext_v7.xml")
+public class UserServiceTest_v7 {
     @Autowired
     DataSource dataSource;
     @Autowired
@@ -122,12 +122,19 @@ public class UserServiceTest_v5 {
 
     static class TestUserService extends UserServiceImpl {
         private String id = "madnite11";
-//        private String id = "joytouch";
 
         @Override
         protected void upgradeLevel(User user) {
             if (user.getId().equals(this.id)) throw new TestUserServiceException();
             super.upgradeLevel(user);
+        }
+
+        @Override
+        public List<User> getAll() {
+            for (User user : super.getAll()) {
+                super.update(user); //강제로 쓰기를 시도 -> 예외 발생
+            }
+            return null;
         }
     }
 
@@ -148,10 +155,14 @@ public class UserServiceTest_v5 {
     }
 
     @Test
-    public void advisorAutoProxyCreator(){
+    public void advisorAutoProxyCreator() {
         //모든 JDK 다이내믹 프록시 방식으로 만들어지는 프록시는 Proxy 클래스의 서브클래스이다
         assertThat(testUserService, is(java.lang.reflect.Proxy.class));
     }
 
+    @Test(expected = TransientDataAccessResourceException.class)
+    public void readOnlyTransactionAttribute(){
+        testUserService.getAll();
+    }
 
 }
