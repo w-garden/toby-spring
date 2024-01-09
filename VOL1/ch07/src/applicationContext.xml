@@ -30,6 +30,7 @@
 
     <bean id="userDao" class="springbook.dao.UserDaoJdbc">
         <property name="jdbcTemplate" ref="dataSource"/>
+        <property name="sqlAdd" value="insert into users(id, name, password, level, login, recommend, email) values (?,?,?,?,?,?,?)"/>
     </bean>
 
     <bean id="testUserService" class="springbook.UserServiceTest$TestUserService" parent="userService"/>
