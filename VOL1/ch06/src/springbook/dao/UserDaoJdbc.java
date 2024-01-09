@@ -14,7 +14,7 @@ public class UserDaoJdbc implements UserDao{
 
     private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
+    public void setJdbcTemplate(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

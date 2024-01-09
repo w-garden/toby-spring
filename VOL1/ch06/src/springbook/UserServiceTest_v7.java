@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -23,7 +24,6 @@ import springbook.domain.User;
 import springbook.service.UserService;
 import springbook.service.UserServiceImpl;
 
-import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,8 +38,8 @@ import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
  * @Transactional 애노테이션 사용
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-//@TransactionConfiguration(defaultRollback = false)
-//@Transactional
+@TransactionConfiguration(defaultRollback = false)
+@Transactional
 @ContextConfiguration(locations = "/applicationContext_v7.xml")
 public class UserServiceTest_v7 {
     @Autowired
@@ -182,6 +182,7 @@ public class UserServiceTest_v7 {
         transactionManager.commit(txStatus);
     }
     @Test
+    @Transactional
     public void transactionSync_읽기전용_예외_테스트() {
         DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
         txDefinition.setReadOnly(true);
@@ -196,6 +197,7 @@ public class UserServiceTest_v7 {
     }
 
     @Test
+    @Rollback
     public void transactionSync_롤백_테스트() {
         userService.deleteAll();
         assertThat(userDao.getCount(), is(0));
@@ -212,8 +214,8 @@ public class UserServiceTest_v7 {
         assertThat(userDao.getCount(), is(0));
     }
 
-    @Test
-    @Transactional
+    @Test(expected = TransientDataAccessResourceException.class)
+    @Transactional(readOnly = true)
     public void transactionSync_테스트_애노테이션_적용() {
         userService.deleteAll();
         userService.add(users.get(0));
