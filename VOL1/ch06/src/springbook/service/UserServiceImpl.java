@@ -10,8 +10,6 @@ import java.util.List;
 
 import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
-
-
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
     private MailSender mailSender;

@@ -17,40 +17,23 @@
         <property name="password" value="spring"/>
     </bean>
 
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven/>
+
     <bean id="userService" class="springbook.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
     <bean id="userDao" class="springbook.dao.UserDaoJdbc">
-        <property name="jdbcTemplate" ref="dataSource"/>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
-    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="get*" propagation="REQUIRED" read-only="true" timeout="30"/>
-            <tx:method name="upgrade*" propagation="REQUIRES_NEW" isolation="SERIALIZABLE"/>
-            <tx:method name="*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:advisor advice-ref="transactionAdvice" pointcut="bean(*Service)"/>
-    </aop:config>
-
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
     <bean id="testUserService" class="springbook.UserServiceTest_v7$TestUserService" parent="userService"/>
 
     <bean id="mailSender" class="springbook.service.DummyMailSender"/>
 
-    <bean id="message" class="springbook.learningtest.spring.factoryBean.MessageFactoryBean">
-        <property name="text" value="Factory Bean"/>
-    </bean>
-    <!-- @Transactional 을 이용하기 위한 설정 -->
-    <tx:annotation-driven/>
 </beans>

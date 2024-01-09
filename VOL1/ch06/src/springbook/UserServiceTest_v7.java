@@ -11,7 +11,11 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import springbook.dao.UserDao;
 import springbook.dao.UserDaoJdbc;
 import springbook.domain.Level;
@@ -31,13 +35,13 @@ import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
 import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 /**
- * tx 네임스페이스 선언
+ * @Transactional 애노테이션 사용
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+//@TransactionConfiguration(defaultRollback = false)
+//@Transactional
 @ContextConfiguration(locations = "/applicationContext_v7.xml")
 public class UserServiceTest_v7 {
-    @Autowired
-    DataSource dataSource;
     @Autowired
     private UserService userService;
     @Autowired
@@ -164,5 +168,57 @@ public class UserServiceTest_v7 {
     public void readOnlyTransactionAttribute(){
         testUserService.getAll();
     }
+    @Test(expected = TransientDataAccessResourceException.class)
+    public void transactionSync(){
+        DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
+
+        TransactionStatus txStatus = transactionManager.getTransaction(txDefinition);
+
+        userService.deleteAll();
+
+        userService.add(users.get(0));
+        userService.add(users.get(1));
+
+        transactionManager.commit(txStatus);
+    }
+    @Test
+    public void transactionSync_읽기전용_예외_테스트() {
+        DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
+        txDefinition.setReadOnly(true);
+
+        TransactionStatus txStatus = transactionManager.getTransaction(txDefinition);
+        userService.deleteAll();
+
+        userService.add(users.get(0));
+        userService.add(users.get(1));
+
+        transactionManager.commit(txStatus);
+    }
+
+    @Test
+    public void transactionSync_롤백_테스트() {
+        userService.deleteAll();
+        assertThat(userDao.getCount(), is(0));
+
+        DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDefinition);
+
+        userService.add(users.get(0));
+        userService.add(users.get(1));
+        assertThat(userDao.getCount(), is(2));
+
+        transactionManager.rollback(txStatus);
+
+        assertThat(userDao.getCount(), is(0));
+    }
+
+    @Test
+    @Transactional
+    public void transactionSync_테스트_애노테이션_적용() {
+        userService.deleteAll();
+        userService.add(users.get(0));
+        userService.add(users.get(1));
+    }
+
 
 }
