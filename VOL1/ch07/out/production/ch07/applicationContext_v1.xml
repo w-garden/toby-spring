@@ -33,7 +33,7 @@
         <property name="sqlAdd" value="insert into users(id, name, password, level, login, recommend, email) values (?,?,?,?,?,?,?)"/>
     </bean>
 
-    <bean id="testUserService" class="springbook.user.UserServiceTest_v1$TestUserService" parent="userService"/>
+    <bean id="testUserService" class="springbook.user.UserServiceTest$TestUserService" parent="userService"/>
 
     <bean id="mailSender" class="springbook.user.service.DummyMailSender"/>
 

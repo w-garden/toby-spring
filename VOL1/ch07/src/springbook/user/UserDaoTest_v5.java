@@ -8,7 +8,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.user.dao.UserDaoJdbc_v1;
+import springbook.user.dao.UserDaoJdbc_v5;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
@@ -19,10 +19,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v1.xml")
-public class UserDaoTest {
+@ContextConfiguration(locations = "/applicationContext_v5.xml")
+public class UserDaoTest_v5 {
     @Autowired
-    UserDaoJdbc_v1 dao;
+    UserDaoJdbc_v5 dao;
 
     DataSource dataSource;
 
@@ -136,17 +136,7 @@ public class UserDaoTest {
         checkSameUser(user2, user2same);
     }
 
-//    @ContextTest
-//    public void sqlExceptionTranslate() {
-//        try {
-//            dao.add(user1);
-//            dao.add(user1);
-//        }catch (DuplicateKeyException ex){
-//            SQLException sqlEx = (SQLException) ex.getRootCause();
-//            SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
-//            assertThat(set.translate(null, null, sqlEx), is(DataAccessException.class));
-//        }
-//    }
+
 
 
 }

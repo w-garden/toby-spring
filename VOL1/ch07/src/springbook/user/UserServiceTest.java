@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,7 +16,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import springbook.user.dao.UserDao;
-import springbook.user.dao.UserDaoJdbc_v5;
+import springbook.user.dao.UserDaoJdbc_v1;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 import springbook.user.service.UserService;
@@ -34,14 +35,15 @@ import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@TransactionConfiguration(defaultRollback = false)
-@ContextConfiguration(locations = "/applicationContext_v5.xml")
-public class UserServiceTest_v5 {
+//@Transactional
+@ContextConfiguration(locations = "/applicationContext_v1.xml")
+public class UserServiceTest {
     @Autowired
     private UserService userService;
     @Autowired
     private UserService testUserService;
     @Autowired
-    private UserDaoJdbc_v5 userDao;
+    private UserDaoJdbc_v1 userDao;
     @Autowired
     PlatformTransactionManager transactionManager;
     @Autowired
@@ -175,7 +177,7 @@ public class UserServiceTest_v5 {
 
         transactionManager.commit(txStatus);
     }
-    @Test
+    @Test(expected = TransientDataAccessResourceException.class)
     @Transactional(readOnly = true)
     public void transactionSync_읽기전용_예외_테스트() {
         DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
@@ -207,7 +209,8 @@ public class UserServiceTest_v5 {
         assertThat(userDao.getCount(), is(0));
     }
 
-    @Test
+    @Test(expected = TransientDataAccessResourceException.class)
+    @Transactional(readOnly = true)
     public void transactionSync_트랜잭션_애노테이션() {
         userService.deleteAll();
         userService.add(users.get(0));
