@@ -1,10 +1,10 @@
-package springbook.service;
+package springbook.user.service;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import springbook.dao.UserDao;
-import springbook.domain.Level;
-import springbook.domain.User;
+import springbook.user.dao.UserDao;
+import springbook.user.domain.Level;
+import springbook.user.domain.User;
 
 import java.util.List;
 

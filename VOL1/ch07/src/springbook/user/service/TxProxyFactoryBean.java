@@ -1,4 +1,4 @@
-package springbook.service;
+package springbook.user.service;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;

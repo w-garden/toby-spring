@@ -1,4 +1,4 @@
-package springbook.service;
+package springbook.user.service;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;

@@ -1,9 +1,9 @@
-package springbook;
+package springbook.user;
 
 import org.junit.Before;
 import org.junit.Test;
-import springbook.domain.Level;
-import springbook.domain.User;
+import springbook.user.domain.Level;
+import springbook.user.domain.User;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

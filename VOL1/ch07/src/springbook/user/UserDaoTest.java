@@ -1,4 +1,4 @@
-package springbook;
+package springbook.user;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,9 +8,9 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.dao.UserDaoJdbc;
-import springbook.domain.Level;
-import springbook.domain.User;
+import springbook.user.dao.UserDaoJdbc_v1;
+import springbook.user.domain.Level;
+import springbook.user.domain.User;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -19,10 +19,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
+@ContextConfiguration(locations = "/applicationContext_v1.xml")
 public class UserDaoTest {
     @Autowired
-    UserDaoJdbc dao;
+    UserDaoJdbc_v1 dao;
 
     DataSource dataSource;
 

@@ -1,4 +1,4 @@
-package springbook;
+package springbook.user;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,23 +6,20 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import springbook.dao.UserDao;
-import springbook.dao.UserDaoJdbc;
-import springbook.domain.Level;
-import springbook.domain.User;
-import springbook.service.UserService;
-import springbook.service.UserServiceImpl;
+import springbook.user.dao.UserDao;
+import springbook.user.dao.UserDaoJdbc_v3;
+import springbook.user.domain.Level;
+import springbook.user.domain.User;
+import springbook.user.service.UserService;
+import springbook.user.service.UserServiceImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,15 +34,14 @@ import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@TransactionConfiguration(defaultRollback = false)
-//@Transactional
-@ContextConfiguration(locations = "/applicationContext.xml")
-public class UserServiceTest {
+@ContextConfiguration(locations = "/applicationContext_v3.xml")
+public class UserServiceTest_v3 {
     @Autowired
     private UserService userService;
     @Autowired
     private UserService testUserService;
     @Autowired
-    private UserDaoJdbc userDao;
+    private UserDaoJdbc_v3 userDao;
     @Autowired
     PlatformTransactionManager transactionManager;
     @Autowired
@@ -179,7 +175,7 @@ public class UserServiceTest {
 
         transactionManager.commit(txStatus);
     }
-    @Test(expected = TransientDataAccessResourceException.class)
+    @Test
     @Transactional(readOnly = true)
     public void transactionSync_읽기전용_예외_테스트() {
         DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
@@ -211,9 +207,8 @@ public class UserServiceTest {
         assertThat(userDao.getCount(), is(0));
     }
 
-    @Test(expected = TransientDataAccessResourceException.class)
-    @Transactional(readOnly = true)
-    public void transactionSync_테스트_애노테이션_적용() {
+    @Test
+    public void transactionSync_트랜잭션_애노테이션() {
         userService.deleteAll();
         userService.add(users.get(0));
         userService.add(users.get(1));

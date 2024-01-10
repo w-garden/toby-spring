@@ -9,32 +9,26 @@
                            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
                            http://www.springframework.org/schema/tx
                            http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/spring"/>
-        <property name="username" value="spring"/>
-        <property name="password" value="spring"/>
+        <property name="driverClass" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:tcp://localhost/~/spring"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
     </bean>
-
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
     <tx:annotation-driven/>
-
-    <bean id="userService" class="springbook.service.UserServiceImpl">
+    <bean id="userService" class="springbook.user.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
         <property name="mailSender" ref="mailSender"/>
     </bean>
-
-    <bean id="userDao" class="springbook.dao.UserDaoJdbc">
-        <property name="jdbcTemplate" ref="dataSource"/>
-        <property name="sqlAdd" value="insert into users(id, name, password, level, login, recommend, email) values (?,?,?,?,?,?,?)"/>
+    <bean id="userDao" class="springbook.user.dao.UserDaoJdbc_v4">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sqlService" ref="sqlService"/>
     </bean>
-
-    <bean id="testUserService" class="springbook.UserServiceTest$TestUserService" parent="userService"/>
-
-    <bean id="mailSender" class="springbook.service.DummyMailSender"/>
+    <bean id="sqlService" class="springbook.user.sqlservice.XmlSqlService"/>
+    <bean id="testUserService" class="springbook.user.UserServiceTest_v4$TestUserService" parent="userService"/>
+    <bean id="mailSender" class="springbook.user.service.DummyMailSender"/>
 
 </beans>

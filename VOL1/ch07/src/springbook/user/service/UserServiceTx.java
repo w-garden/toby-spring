@@ -1,9 +1,9 @@
-package springbook.service;
+package springbook.user.service;
 
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import springbook.domain.User;
+import springbook.user.domain.User;
 
 import java.util.List;
 
