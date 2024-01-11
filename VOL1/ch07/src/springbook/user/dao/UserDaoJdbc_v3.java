@@ -12,9 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * SqlService Interface 설계
- */
+
 public class UserDaoJdbc_v3 implements UserDao {
 
     private SqlService sqlService;

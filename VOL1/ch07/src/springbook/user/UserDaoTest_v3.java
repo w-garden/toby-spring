@@ -17,7 +17,9 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
+/**
+ * SqlService Interface 설계
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext_v3.xml")
 public class UserDaoTest_v3 {

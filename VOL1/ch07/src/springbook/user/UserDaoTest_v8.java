@@ -8,25 +8,25 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.user.dao.UserDaoJdbc_v4;
+import springbook.user.dao.UserDaoJdbc_v8;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+
 /**
- * XmlSqlService 구현
+ * DefaultSqlService 클래스 구현
+ *
+ * <bean id="sqlService" class="springbook.user.sqlservice.DefaultSqlService"/>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v4.xml")
-public class UserDaoTest_v4 {
+@ContextConfiguration(locations = "/applicationContext_v8.xml")
+public class UserDaoTest_v8 {
     @Autowired
-    UserDaoJdbc_v4 dao;
-
-    DataSource dataSource;
+    UserDaoJdbc_v8 dao;
 
     private User user1;
     private User user2;

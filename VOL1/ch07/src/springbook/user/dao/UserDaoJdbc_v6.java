@@ -11,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * 자기참조빈
- */
+
 public class UserDaoJdbc_v6 implements UserDao {
 
     private SqlService sqlService;

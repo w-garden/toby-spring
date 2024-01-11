@@ -17,7 +17,9 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
+/**
+ * SQL 문장 xml 파일로 이관 -Map
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext_v2.xml")
 public class UserDaoTest_v2 {

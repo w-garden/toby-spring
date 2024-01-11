@@ -17,7 +17,13 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
+/**
+ * XmlSqlService에서 오브젝트 초기화 방식을 아래 와같은 코드 사용해서 테스트
+ *    @PostConstruct
+ *    public void loadSql(){
+ *
+ *     }
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext_v5.xml")
 public class UserDaoTest_v5 {

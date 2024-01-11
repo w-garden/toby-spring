@@ -18,14 +18,19 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
+/**
+ * 자기참조 빈 설정해서 테스트
+ * <bean id="sqlService" class="springbook.user.sqlservice.XmlSqlService_v6">
+ *      <property name="sqlReader" ref="sqlService"/>
+ *      <property name="sqlRegistry" ref="sqlService"/>
+ *      <property name="sqlmapFile" value="sqlmap.xml"/>
+ * </bean>
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext_v6.xml")
 public class UserDaoTest_v6 {
     @Autowired
     UserDaoJdbc_v6 dao;
-
-    DataSource dataSource;
 
     private User user1;
     private User user2;

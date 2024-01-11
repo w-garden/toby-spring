@@ -11,9 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * SQL 문장 xml 파일로 이관 -Map
- */
+
 public class UserDaoJdbc_v2 implements UserDao {
 
     private Map<String , String> sqlMap;

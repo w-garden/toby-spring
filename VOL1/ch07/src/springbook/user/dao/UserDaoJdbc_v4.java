@@ -11,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * XmlSqlService 구현
- */
+
 public class UserDaoJdbc_v4 implements UserDao {
 
     private SqlService sqlService;

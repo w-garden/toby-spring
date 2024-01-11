@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-public class UserDaoJdbc_v5 implements UserDao {
+public class UserDaoJdbc_v8 implements UserDao {
 
     private SqlService sqlService;
 

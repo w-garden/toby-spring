@@ -8,7 +8,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.user.dao.UserDaoJdbc_v4;
+import springbook.user.dao.UserDaoJdbc_v7;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
@@ -18,15 +18,15 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 /**
- * XmlSqlService 구현
+ *  public class XmlSqlService implements SqlService, SqlRegistry, SqlReader
+ *  위와 같은 XmlSqlService를 단독 클래스로 분리해서 테스트
+ *  BaseSqlService, HashMapSqlRegistry, JaxbXmlSqlReader
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v4.xml")
-public class UserDaoTest_v4 {
+@ContextConfiguration(locations = "/applicationContext_v7.xml")
+public class UserDaoTest_v7 {
     @Autowired
-    UserDaoJdbc_v4 dao;
-
-    DataSource dataSource;
+    UserDaoJdbc_v7 dao;
 
     private User user1;
     private User user2;

@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * SQL 문장 xml 파일로 이관 - String
- */
+
 public class UserDaoJdbc_v1 implements UserDao {
     private String sqlAdd;
 
