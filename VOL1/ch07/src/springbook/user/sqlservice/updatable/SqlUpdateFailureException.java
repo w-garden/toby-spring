@@ -1,4 +1,6 @@
-package springbook.user.sqlservice;
+package springbook.user.sqlservice.updatable;
+
+import springbook.user.sqlservice.SqlNotFoundException;
 
 public class SqlUpdateFailureException extends RuntimeException {
     public SqlUpdateFailureException(String message) {

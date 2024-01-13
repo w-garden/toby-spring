@@ -1,4 +1,6 @@
-package springbook.user.sqlservice;
+package springbook.user.sqlservice.updatable;
+
+import springbook.user.sqlservice.SqlRegistry;
 
 import java.util.Map;
 
