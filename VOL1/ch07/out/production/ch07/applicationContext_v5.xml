@@ -28,7 +28,7 @@
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
-    <bean id="userDao" class="springbook.user.dao.UserDaoJdbc_v5">
+    <bean id="userDao" class="springbook.user.dao.UserDaoJdbc_v3">
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlService" ref="sqlService"/>
     </bean>

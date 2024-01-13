@@ -8,7 +8,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.user.dao.UserDaoJdbc_v7;
+import springbook.user.dao.UserDaoJdbc_v3;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(locations = "/applicationContext_v7.xml")
 public class UserDaoTest_v7 {
     @Autowired
-    UserDaoJdbc_v7 dao;
+    UserDaoJdbc_v3 dao;
 
     private User user1;
     private User user2;

@@ -18,13 +18,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * DefaultSqlService 클래스 구현
- *
- * <bean id="sqlService" class="springbook.user.sqlservice.DefaultSqlService"/>
+ * ConcurrentHashMapSqlRegistry 구현해서 테스트하기
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v8.xml")
-public class UserDaoTest_v8 {
+@ContextConfiguration(locations = "/applicationContext_v11.xml")
+public class UserDaoTest_v11 {
     @Autowired
     UserDaoJdbc_v3 dao;
 

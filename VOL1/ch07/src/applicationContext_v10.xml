@@ -32,10 +32,14 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlService" ref="sqlService"/>
     </bean>
-
-    <bean id="sqlService" class="springbook.user.sqlservice.XmlSqlService_v5">
-        <property name="sqlmapFile" value="sqlmap.xml"/>
+    <bean id="sqlService" class="springbook.user.sqlservice.OxmSqlService_v10">
+        <property name="unmarshaller" ref="unmarshaller"/>
+        <property name="sqlmap" value="classpath:springbook/user/dao/sqlmap.xml"/>
+<!--        <property name="sqlmap" value="file:E:\toby-spring\VOL1\ch07\src\springbook\user\dao\sqlmap.xml"/>-->
     </bean>
+    <bean id="unmarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="springbook.user.sqlservice.jaxb"/>
+     </bean>
 
     <bean id="testUserService" class="springbook.user.UserServiceTest$TestUserService" parent="userService"/>
 

@@ -9,7 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.user.dao.UserDaoJdbc_v1;
-import springbook.user.dao.UserDaoJdbc_v6;
+import springbook.user.dao.UserDaoJdbc_v3;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(locations = "/applicationContext_v6.xml")
 public class UserDaoTest_v6 {
     @Autowired
-    UserDaoJdbc_v6 dao;
+    UserDaoJdbc_v3 dao;
 
     private User user1;
     private User user2;
