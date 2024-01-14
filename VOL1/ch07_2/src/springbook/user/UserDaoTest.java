@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.AppContext;
-import springbook.TestAppContext;
 import springbook.user.dao.UserDaoJdbc;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
