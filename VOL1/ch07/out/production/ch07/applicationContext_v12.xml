@@ -49,7 +49,7 @@
         <property name="dataSource" ref="embeddedDatabase"/>
     </bean>
 
-    <jdbc:embedded-database id="embeddedDatabase" type="HSQL">
+    <jdbc:embedded-database id="embeddedDatabase" type="H2">
         <jdbc:script location="classpath:springbook/user/sqlservice/updatable/sqlRegistrySchema.sql"/>
     </jdbc:embedded-database>
 

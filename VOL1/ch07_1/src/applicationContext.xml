@@ -32,11 +32,11 @@
         <property name="mailSender" ref="mailSender"/>
     </bean>
 
-    <bean id="userDao" class="springbook.user.dao.UserDaoJdbc_v3">
+    <bean id="userDao" class="springbook.user.dao.UserDaoJdbc">
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlService" ref="sqlService"/>
     </bean>
-    <bean id="sqlService" class="springbook.user.sqlservice.OxmSqlService_v10">
+    <bean id="sqlService" class="springbook.user.sqlservice.OxmSqlService">
         <property name="unmarshaller" ref="unmarshaller"/>
         <property name="sqlmap" value="classpath:springbook/user/dao/sqlmap.xml"/>
         <property name="sqlRegistry" ref="sqlRegistry"/> <!-- 디폴트로 준비된 HashMapSqlRegistry 대신 외부에 정의한 SQl 레지스트리를 사용하도록 명시-->
