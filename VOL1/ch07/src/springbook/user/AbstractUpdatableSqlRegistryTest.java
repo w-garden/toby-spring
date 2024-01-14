@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public abstract class AbstractUpdatableSqlRegistryTest {
-    UpdatableSqlRegistry sqlRegistry;
+    protected UpdatableSqlRegistry sqlRegistry;
 
     @Before
     public void setUp() {
