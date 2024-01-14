@@ -6,9 +6,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.TestApplicationContext;
+import springbook.AppContext;
+import springbook.TestAppContext;
 import springbook.user.dao.UserDaoJdbc;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
@@ -20,7 +22,8 @@ import static org.junit.Assert.assertThat;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestApplicationContext.class)
+@ActiveProfiles("test")
+@ContextConfiguration(classes = AppContext.class)
 public class UserDaoTest {
     @Autowired
     UserDaoJdbc dao;
@@ -28,6 +31,7 @@ public class UserDaoTest {
     private User user1;
     private User user2;
     private User user3;
+
     @Before
     public void setUp() {
         dao.deleteAll();
@@ -115,11 +119,12 @@ public class UserDaoTest {
         dao.add(user1);
         dao.add(user1);
     }
+
     @Test
-    public void update(){
+    public void update() {
         dao.add(user1);
         dao.add(user2);
-        
+
         user1.setName("신호철");
         user1.setPassword("springno6");
         user1.setLevel(Level.GOLD);
@@ -133,8 +138,6 @@ public class UserDaoTest {
         User user2same = dao.get(user2.getId());
         checkSameUser(user2, user2same);
     }
-
-
 
 
 }

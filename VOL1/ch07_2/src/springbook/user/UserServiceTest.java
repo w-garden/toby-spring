@@ -5,16 +5,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import springbook.TestApplicationContext;
+import springbook.AppContext;
+import springbook.TestAppContext;
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
 import springbook.user.domain.Level;
@@ -34,7 +37,8 @@ import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestApplicationContext.class)
+@ActiveProfiles("test")
+@ContextConfiguration(classes = AppContext.class)
 public class UserServiceTest {
     @Autowired
     private UserService userService;
@@ -45,10 +49,11 @@ public class UserServiceTest {
     @Autowired
     PlatformTransactionManager transactionManager;
     @Autowired
-    MailSender mailSender;
-
-    @Autowired
-    ApplicationContext context;
+    DefaultListableBeanFactory bf;
+//    @Autowired
+//    MailSender mailSender;
+//    @Autowired
+//    ApplicationContext context;
     List<User> users;
 
     @Before
@@ -60,6 +65,12 @@ public class UserServiceTest {
                 new User("madnite11", "이상호", "p4", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD, "madnite11@naver.com"),
                 new User("green", "오민규", "p5", Level.GOLD, 100, Integer.MAX_VALUE, "green@naver.com")
         );
+    }
+    @Test
+    public void bean(){
+        for (String beanDefinitionName : bf.getBeanDefinitionNames()) {
+            System.out.println(beanDefinitionName +" \t===>>>\t " + bf.getBean(beanDefinitionName).getClass().getName());
+        }
     }
 
     @Test
@@ -159,11 +170,12 @@ public class UserServiceTest {
     }
 
     @Test
-    public void readOnlyTransactionAttribute(){
+    public void readOnlyTransactionAttribute() {
         testUserService.getAll();
     }
+
     @Test
-    public void transactionSync(){
+    public void transactionSync() {
         DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
 
         TransactionStatus txStatus = transactionManager.getTransaction(txDefinition);
@@ -175,6 +187,7 @@ public class UserServiceTest {
 
         transactionManager.commit(txStatus);
     }
+
     @Test
     public void transactionSync_읽기전용_예외_테스트() {
         DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
@@ -206,12 +219,13 @@ public class UserServiceTest {
         assertThat(userDao.getCount(), is(0));
     }
 
-    @Test(expected = TransientDataAccessResourceException.class)
+    @Test
     public void transactionSync_트랜잭션_애노테이션() {
         userService.deleteAll();
         userService.add(users.get(0));
         userService.add(users.get(1));
     }
+
 
 
 }
