@@ -1,7 +1,10 @@
 package springbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.mail.MailSender;
@@ -11,24 +14,48 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springbook.user.UserServiceTest;
 import springbook.user.service.DummyMailSender;
 import springbook.user.service.UserService;
+import springbook.user.sqlservice.SqlMapConfig;
+import springbook.user.sqlservice.UserSqlMapConfig;
 
 import javax.sql.DataSource;
+import java.sql.Driver;
 
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "springbook.user")
 @Import(SqlServiceContext.class)
+@PropertySource("/database.properties")
 public class AppContext {
+    @Value("${db.driverClass}")
+    Class<? extends Driver> driverClass;
+    @Value("${db.url}")
+    String url;
+    @Value("${db.username}")
+    String username;
+    @Value("${db.password}")
+    String password;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Bean
+    public SqlMapConfig sqlMapConfig() {
+        return new UserSqlMapConfig();
+    }
+
     @Bean
     public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-        dataSource.setDriverClass(org.h2.Driver.class);
-        dataSource.setUrl("jdbc:h2:tcp://localhost/~/spring");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setDriverClass(this.driverClass);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         return dataSource;
     }
+
     @Bean
     public PlatformTransactionManager transactionManager() {
         DataSourceTransactionManager tm = new DataSourceTransactionManager();
@@ -38,7 +65,7 @@ public class AppContext {
 
     @Configuration
     @Profile("production")
-    public class ProductionAppContext {
+    public static class ProductionAppContext {
         @Bean
         public MailSender mailSender() {
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -49,11 +76,12 @@ public class AppContext {
 
     @Configuration
     @Profile("test")
-    public class TestAppContext {
+    public static class TestAppContext {
         @Bean
         public UserService testUserService() {
-            return  new UserServiceTest.TestUserService();
+            return new UserServiceTest.TestUserService();
         }
+
         @Bean
         public MailSender mailSender() {
             return new DummyMailSender();
