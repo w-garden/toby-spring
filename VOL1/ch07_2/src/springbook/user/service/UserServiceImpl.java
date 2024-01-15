@@ -10,8 +10,8 @@ import springbook.user.domain.User;
 
 import java.util.List;
 
-import static springbook.user.UserConst.MIN_LOGCOUNT_FOR_SILVER;
-import static springbook.user.UserConst.MIN_RECCOMEND_FOR_GOLD;
+import static springbook.user.domain.UserConst.MIN_LOGCOUNT_FOR_SILVER;
+import static springbook.user.domain.UserConst.MIN_RECCOMEND_FOR_GOLD;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
