@@ -83,13 +83,17 @@ public class UserServiceImpl implements UserService {
         mailSender.send(mailMessage);
     }
 
+    /*
+       BASIC -> SILVER : 50번 이상 로그인 해야함
+       SILVER -> GOLD : 30번 이상 추천을 받아야 함
+     */
     private boolean canUpgradeLevel(User user) {
         Level currentLevel = user.getLevel();
         switch (currentLevel) {
             case BASIC:
-                return (user.getLogin() >= MIN_LOGCOUNT_FOR_SILVER);
+                return (user.getLogin() >= MIN_LOGCOUNT_FOR_SILVER); // MIN_LOGCOUNT_FOR_SILVER = 50
             case SILVER:
-                return (user.getRecommend() >= MIN_RECCOMEND_FOR_GOLD);
+                return (user.getRecommend() >= MIN_RECCOMEND_FOR_GOLD); //MIN_RECCOMEND_FOR_GOLD = 30
             case GOLD:
                 return false;
             default:

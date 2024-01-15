@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import springbook.AppContext;
+import springbook.user.config.AppContext;
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
 import springbook.user.domain.Level;
@@ -47,19 +47,19 @@ public class UserServiceTest {
     PlatformTransactionManager transactionManager;
     @Autowired
     DefaultListableBeanFactory bf;
-//    @Autowired
-//    MailSender mailSender;
-//    @Autowired
-//    ApplicationContext context;
+
     List<User> users;
 
     @Before
     public void setUp() {
+            /*
+       BASIC -> SILVER : 50번 이상 로그인 해야함
+       SILVER -> GOLD : 30번 이상 추천을 받아야 함 */
         users = Arrays.asList(
                 new User("bumjin", "박범진", "p1", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER - 1, 0, "bumjin@naver.com"),
-                new User("joytouch", "강명성", "p2", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0, "joytouch@naver.com"),
+                new User("joytouch", "강명성", "p2", Level.BASIC, MIN_LOGCOUNT_FOR_SILVER, 0, "joytouch@naver.com"), //레벨업 대상
                 new User("erwins", "신승한", "p3", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD - 1),
-                new User("madnite11", "이상호", "p4", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD, "madnite11@naver.com"),
+                new User("madnite11", "이상호", "p4", Level.SILVER, 60, MIN_RECCOMEND_FOR_GOLD, "madnite11@naver.com"), //레벨업 대상
                 new User("green", "오민규", "p5", Level.GOLD, 100, Integer.MAX_VALUE, "green@naver.com")
         );
     }
@@ -71,7 +71,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void upgradeLevels() throws Exception {
+    public void upgradeLevels() {
         UserServiceImpl userServiceImpl = new UserServiceImpl();
         UserDao mockUserDao = mock(UserDao.class);
         when(mockUserDao.getAll()).thenReturn(this.users);
