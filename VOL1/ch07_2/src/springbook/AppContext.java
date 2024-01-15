@@ -17,6 +17,7 @@ import springbook.user.UserServiceTest;
 import springbook.user.dao.UserDao;
 import springbook.user.service.DummyMailSender;
 import springbook.user.service.UserService;
+import springbook.user.sqlservice.EnableSqlService;
 import springbook.user.sqlservice.SqlMapConfig;
 
 import javax.sql.DataSource;
@@ -26,7 +27,7 @@ import java.sql.Driver;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "springbook.user")
-@Import(SqlServiceContext.class)
+@EnableSqlService
 @PropertySource("/database.properties")
 public class AppContext implements SqlMapConfig{
 
@@ -39,13 +40,13 @@ public class AppContext implements SqlMapConfig{
     @Value("${db.password}")
     String password;
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
     @Override
     public Resource getSqlMapResource() {
         return new ClassPathResource("sqlmap.xml", UserDao.class);
+    }
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
     @Bean
     public DataSource dataSource() {
@@ -56,7 +57,6 @@ public class AppContext implements SqlMapConfig{
         dataSource.setPassword(password);
         return dataSource;
     }
-
     @Bean
     public PlatformTransactionManager transactionManager() {
         DataSourceTransactionManager tm = new DataSourceTransactionManager();
@@ -74,7 +74,6 @@ public class AppContext implements SqlMapConfig{
             return mailSender;
         }
     }
-
     @Configuration
     @Profile("test")
     public static class TestAppContext {
@@ -88,6 +87,4 @@ public class AppContext implements SqlMapConfig{
             return new DummyMailSender();
         }
     }
-
-
 }
