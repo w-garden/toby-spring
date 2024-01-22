@@ -9,5 +9,6 @@ public class ConcurrentHashMapSqlRegistryTest extends AbstractUpdatableSqlRegist
     protected UpdatableSqlRegistry createUpdatableSqlRegistry() {
         return new ConcurrentHashMapSqlRegistry();
 
+
     }
 }
