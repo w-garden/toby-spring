@@ -6,27 +6,26 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springbook.user.dao.UserDaoJdbc_v1;
+import springbook.user.config.AppContext;
+import springbook.user.dao.UserDaoJdbc;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-/**
- * SQL 문장 xml 파일로 이관 - String
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext_v1.xml")
-public class UserDaoTest_v1 {
-    @Autowired
-    UserDaoJdbc_v1 dao;
 
-    DataSource dataSource;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("test")
+@ContextConfiguration(classes = AppContext.class)
+public class UserDaoTest {
+    @Autowired
+    UserDaoJdbc dao;
 
     private User user1;
     private User user2;
@@ -119,11 +118,12 @@ public class UserDaoTest_v1 {
         dao.add(user1);
         dao.add(user1);
     }
+
     @Test
-    public void update(){
+    public void update() {
         dao.add(user1);
         dao.add(user2);
-        
+
         user1.setName("신호철");
         user1.setPassword("springno6");
         user1.setLevel(Level.GOLD);
@@ -137,4 +137,6 @@ public class UserDaoTest_v1 {
         User user2same = dao.get(user2.getId());
         checkSameUser(user2, user2same);
     }
+
+
 }
