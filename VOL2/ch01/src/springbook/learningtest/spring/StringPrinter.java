@@ -1,6 +1,5 @@
 package springbook.learningtest.spring;
 
-import org.springframework.beans.factory.config.BeanDefinition;
 
 public class StringPrinter implements Printer {
     private StringBuffer buffer = new StringBuffer();
