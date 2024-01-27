@@ -15,7 +15,6 @@ import org.springframework.util.StringUtils;
 import springbook.learningtest.spring.ioc.bean.*;
 
 
-import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.is;

@@ -1,10 +1,14 @@
-package springbook.learningtest.spring.ioc.bean;
+package springbook.learningtest.spring.ioc.constructor;
 
 
 
 public class Hello {
     String name;
     Printer printer;
+    public Hello(String name, Printer printer) {
+        this.name = name;
+        this.printer = printer;
+    }
 
     public String sayHello(){
         return "Hello " + name;
@@ -13,11 +17,4 @@ public class Hello {
         this.printer.print(sayHello());
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrinter(Printer printer) {
-        this.printer = printer;
-    }
 }
