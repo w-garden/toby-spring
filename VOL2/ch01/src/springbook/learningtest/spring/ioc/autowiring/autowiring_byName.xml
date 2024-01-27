@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"  default-autowire="byName">
+
+    <bean id ="hello" class="springbook.learningtest.spring.ioc.autowiring.Hello">
+        <property name="name" value="Spring"/>
+<!--        <property name="printer" ref="printer"/>-->
+        <!-- printer 프로퍼티 선언은 생략됐지만 autowire="byName" 옵션으로 인해 스프링은
+        Hello 클래스의 프로퍼티의 이름과 동일한 빈을 찾아서 자동으로 프로퍼티로 등록해준다. -->
+    </bean>
+    <bean id="printer" class="springbook.learningtest.spring.ioc.autowiring.StringPrinter"/>
+
+</beans>

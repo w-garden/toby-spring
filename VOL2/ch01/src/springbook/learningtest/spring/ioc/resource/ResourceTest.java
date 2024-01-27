@@ -1,4 +1,4 @@
-package springbook.learningtest.spring.ioc.property;
+package springbook.learningtest.spring.ioc.resource;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -8,16 +8,18 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-public class PropertyTest {
+public class ResourceTest {
     @Test
-    public void propertyDI(){
-        ApplicationContext ctx = new GenericXmlApplicationContext("springbook/learningtest/spring/ioc/property/property.xml");
+    public void resource(){
+        ApplicationContext ctx = new GenericXmlApplicationContext("springbook/learningtest/spring/ioc/resource/resource.xml");
         Hello hello = ctx.getBean("hello", Hello.class);
+
         assertThat(hello, is(notNullValue()));
-        assertThat(hello.sayHello(), is("Hello Spring"));
 
         Printer printer = ctx.getBean("printer", Printer.class);
-        assertThat(printer,is(notNullValue()));
-
+        assertThat(printer, is(notNullValue()));
+        hello.print();
+        assertThat(printer.toString(),is("Hello Spring"));
     }
+
 }
