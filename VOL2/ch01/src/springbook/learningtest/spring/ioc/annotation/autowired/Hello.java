@@ -1,4 +1,4 @@
-package springbook.learningtest.spring.ioc.resource;
+package springbook.learningtest.spring.ioc.annotation.autowired;
 
 
 import javax.annotation.Resource;
