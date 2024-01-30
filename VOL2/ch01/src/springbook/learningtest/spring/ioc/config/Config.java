@@ -11,8 +11,5 @@ public class Config {
     public Hello hello(){
         return new Hello();
     }
-    @Bean
-    public Printer printer(){
-        return new Printer();
-    }
+
 }
